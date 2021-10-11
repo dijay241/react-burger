@@ -1,0 +1,25 @@
+.tabs {
+
+}
+
+.tabs-content {
+    display: flex;
+}
+
+.tabs-item {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    box-shadow: inset 0 -1px 0 var(--background-element);
+    cursor: pointer;
+    color: var(--text-inactive-color);
+}
+
+.tabs-item-active {
+    color: var(--text-primary-color);
+    box-shadow: inset 0 -1px 0 var(--colors-interface-accent);
+}
+
+.tabs-item:not(.tabs-item-active):hover {
+    opacity: .8;
+}
