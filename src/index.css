@@ -11,3 +11,31 @@ svg {
     margin: 0;
     padding: 0;
 }
+
+.scroll-container {
+    flex-grow: 1;
+    position: relative;
+}
+
+.scroll-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; 
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.scroll-inner::-webkit-scrollbar {
+    width: calc(2 * var(--offset-base-size));
+    height: .5em;
+}
+
+.scroll-inner::-webkit-scrollbar-thumb {
+    background: var(--text-inactive-color);
+}
+
+.scroll-inner::-webkit-scrollbar-track {
+    background: var(--background-element);
+}

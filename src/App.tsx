@@ -1,17 +1,17 @@
 import React from 'react';
-import Style from './App.module.css';
+import style from './App.module.css';
 import AppHeader from "./components/app-header/app-header";
 import BurgerIngredients from "./components/burger-ingridients/burger-ingredients";
 
 function App() {
   return (
-    <div className={Style.app}>
+    <div className={style.app}>
         <AppHeader />
-        <main className={Style.main}>
-            <section className={Style.column}>
+        <main className={style.main}>
+            <section className={style.column}>
                 <BurgerIngredients />
             </section>
-            <section className={Style.column}>
+            <section className={style.column}>
                 2
             </section>
         </main>

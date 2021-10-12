@@ -50,7 +50,11 @@
 }
 
 .nav-item:not(.nav-item-active):hover {
-    opacity: .8;
+    color: var(--text-primary-color);
+}
+
+.nav-item:not(.nav-item-active):hover svg {
+    fill: var(--text-primary-color);
 }
 
 .nav-item-active {

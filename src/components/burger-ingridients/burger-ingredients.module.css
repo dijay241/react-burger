@@ -18,8 +18,13 @@
 .tabs-item-active {
     color: var(--text-primary-color);
     box-shadow: inset 0 -1px 0 var(--colors-interface-accent);
+    cursor: default;
 }
 
 .tabs-item:not(.tabs-item-active):hover {
-    opacity: .8;
+    color: var(--text-primary-color);
+}
+
+.group {
+
 }
