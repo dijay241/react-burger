@@ -1,0 +1,60 @@
+.ingridients {
+    flex-grow: 1;
+}
+
+.bun {
+    
+}
+
+.item {
+    position: relative;
+    margin-bottom: calc(4 * var(--offset-base-size));
+}
+
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.drag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.item-content {
+    background: var(--background);
+    border-radius: var(--common-border-radius-s);
+    display: flex;
+    align-items: center;
+    column-gap: calc(5 * var(--offset-base-size));
+    min-height: calc(12 * var(--offset-base-size));
+}
+
+.item-image img {
+    width: auto;
+    height: calc(10 * var(--offset-base-size));
+    vertical-align: middle;
+}
+
+.item-name {
+    flex-grow: 1;
+}
+
+.item-price {
+    white-space: nowrap;
+}
+
+.item-icon-remove:hover svg path {
+    fill: var(--text-inactive-color);
+}
+
+.top-item .item-content {
+    border-radius: var(--top-constructor-item-border-radius);
+}
+
+.bottom-item .item-content {
+    border-radius: var(--bottom-constructor-item-border-radius);
+}

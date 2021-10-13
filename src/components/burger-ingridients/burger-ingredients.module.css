@@ -28,3 +28,40 @@
 .group {
 
 }
+
+.items {
+    display: grid; 
+    grid-auto-rows: 1fr; 
+    grid-template-columns: 1fr 1fr; 
+    gap: calc(8 * var(--offset-base-size)) calc(6 * var(--offset-base-size)); 
+}
+
+.item {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.item-image {
+
+}
+
+.item-price {
+    
+}
+
+.item-name {
+
+}
+
+.item-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--colors-interface-accent);
+    height: calc(8 * var(--offset-base-size));
+    width: calc(8 * var(--offset-base-size));
+    border-radius: 50%;
+    text-align: center;
+    line-height: calc(8 * var(--offset-base-size));
+}

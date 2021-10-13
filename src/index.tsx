@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import './index.css';
-import App from './App';
+import App from './components/app/app';  
 import reportWebVitals from './reportWebVitals';
 
 

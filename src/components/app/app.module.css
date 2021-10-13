@@ -10,7 +10,7 @@
 
 .main {
     display: flex;
-    column-gap: 40px;
+    column-gap: calc(10 * var(--offset-base-size));
     flex-grow: 1;
     justify-content: center;
 }

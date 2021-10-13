@@ -211,7 +211,7 @@ const ingridients = [
     }
 ];
 
-export const groups = [
+const groups = [
     {
         name: 'bun',
         title: 'Булки'

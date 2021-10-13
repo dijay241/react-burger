@@ -1,7 +1,8 @@
 import React from 'react';
-import style from './App.module.css';
-import AppHeader from "./components/app-header/app-header";
-import BurgerIngredients from "./components/burger-ingridients/burger-ingredients";
+import style from './app.module.css';
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingridients/burger-ingredients"; 
+import BurgerConstructor from "../burger-constructor/burger-constructor"; 
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
             <section className={style.column}>
                 <BurgerIngredients />
             </section>
-            <section className={style.column}>
-                2
+            <section className={`${style.column} pt-25`}>
+                <BurgerConstructor />
             </section>
         </main>
     </div>
