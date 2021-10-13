@@ -25,16 +25,3 @@ svg {
     left: 0; 
     overflow-y: scroll;
 }
-
-.scroll-inner::-webkit-scrollbar {
-    width: calc(2 * var(--offset-base-size));
-    height: .5em;
-}
-
-.scroll-inner::-webkit-scrollbar-thumb {
-    background: var(--text-inactive-color);
-}
-
-.scroll-inner::-webkit-scrollbar-track {
-    background: var(--background-element);
-}

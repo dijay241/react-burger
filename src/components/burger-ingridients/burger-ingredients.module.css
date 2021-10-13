@@ -1,34 +1,3 @@
-.tabs {
-
-}
-
-.tabs-content {
-    display: flex;
-}
-
-.tabs-item {
-    flex-grow: 1;
-    flex-basis: 0;
-    text-align: center;
-    box-shadow: inset 0 -1px 0 var(--background-element);
-    cursor: pointer;
-    color: var(--text-inactive-color);
-}
-
-.tabs-item-active {
-    color: var(--text-primary-color);
-    box-shadow: inset 0 -1px 0 var(--colors-interface-accent);
-    cursor: default;
-}
-
-.tabs-item:not(.tabs-item-active):hover {
-    color: var(--text-primary-color);
-}
-
-.group {
-
-}
-
 .items {
     display: grid; 
     grid-auto-rows: 1fr; 
@@ -40,28 +9,4 @@
     text-align: center;
     position: relative;
     cursor: pointer;
-}
-
-.item-image {
-
-}
-
-.item-price {
-    
-}
-
-.item-name {
-
-}
-
-.item-counter {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: var(--colors-interface-accent);
-    height: calc(8 * var(--offset-base-size));
-    width: calc(8 * var(--offset-base-size));
-    border-radius: 50%;
-    text-align: center;
-    line-height: calc(8 * var(--offset-base-size));
 }
