@@ -20,11 +20,10 @@ function BurgerConstructor() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {
                         ingridients.map(item => {
-                            return (
-                                <div className={`${style.item} ml-4 mr-1 pl-8`}>
+                            return item.type !== 'bun' && (
+                                <div key = {item._id} className={`${style.item} ml-4 mr-1 pl-8`}>
                                     <div className={style.drag}><DragIcon type="primary" /></div>
                                     <ConstructorElement
-                                        key = {item._id}
                                         text={item.name}
                                         price={item.price}
                                         thumbnail={item.image}

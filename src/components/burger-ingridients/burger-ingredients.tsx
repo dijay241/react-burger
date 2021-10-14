@@ -11,7 +11,8 @@ function BurgerIngredientsGroup(props:any) {
             { ingridients.map(item =>
                 {if(item.type === props.name) {
                     return (
-                        <BurgerIngredientsItem 
+                        <BurgerIngredientsItem
+                            key = {item._id}
                             id = {item._id} 
                             image = {item.image}
                             price = {item.price}
@@ -69,7 +70,8 @@ function BurgerIngredients() {
                     { 
                         groups.map((group, id) => {
                             return (
-                                <BurgerIngredientsGroup 
+                                <BurgerIngredientsGroup
+                                    key = {id}
                                     id = {id}
                                     title = {group.title}
                                     name = {group.name}
