@@ -1,0 +1,32 @@
+.ingredients {
+    flex-grow: 1;
+}
+
+.item {
+    position: relative;
+    display: flex;
+}
+
+.drag {
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: calc(10 * var(--offset-base-size));
+}
+
+.total-price {
+    display: flex;
+}
+
+.total-price svg {
+    width: calc(9 * var(--offset-base-size));
+    height: calc(9 * var(--offset-base-size));
+}
