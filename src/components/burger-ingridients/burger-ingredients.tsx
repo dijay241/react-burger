@@ -1,14 +1,14 @@
 import React from 'react';
 import style from './burger-ingredients.module.css';
 import {CurrencyIcon, Tab, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
-import {ingridients, groups} from '../../utils/data';
+import {groups} from '../../utils/data';
 
 function BurgerIngredientsGroup(props:any) {
     return (
         <article key={props.id} className='pb-10'>
             <h2 className='pb-6 text text_type_main-medium'>{props.title}</h2>
             <div className={`${style.items} pl-4 pr-1`}>
-            { ingridients.map(item =>
+            { props.ingredients.map((item:any) =>
                 {if(item.type === props.name) {
                     return (
                         <BurgerIngredientsItem
@@ -20,7 +20,7 @@ function BurgerIngredientsGroup(props:any) {
                             counter = {1}
                         />
                     )
-                }} 
+                } else return '' }
             )}
             </div>
         </article> 
@@ -47,7 +47,7 @@ function BurgerIngredientsTabs() {
 function BurgerIngredientsItem(props:any) {
     return (
         <article key={props.id} className={style.item}>
-            <p className='mb-1'><img src={props.image} /></p>
+            <p className='mb-1'><img src={props.image} alt='' /></p>
             <p className='mb-1 text text_type_digits-default'>
                 <span className='mr-2'>{props.price}</span>
                 <CurrencyIcon type='primary' />
@@ -58,7 +58,7 @@ function BurgerIngredientsItem(props:any) {
     );
 }
 
-function BurgerIngredients() {
+const BurgerIngredients = (props:any) => {
     return (
         <>
             <header className='pt-10'>
@@ -67,7 +67,7 @@ function BurgerIngredients() {
             </header>
             <section className='scroll-container'>  
                 <div className='scroll-inner custom-scroll pt-10 pb-10'>
-                    { 
+                    {
                         groups.map((group, id) => {
                             return (
                                 <BurgerIngredientsGroup
@@ -75,6 +75,7 @@ function BurgerIngredients() {
                                     id = {id}
                                     title = {group.title}
                                     name = {group.name}
+                                    ingredients = {props.ingredients}
                                 />
                             )
                         })
