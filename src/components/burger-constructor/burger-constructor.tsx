@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import style from './burger-constructor.module.css';
 import {CurrencyIcon, DragIcon, Button, ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = (props:any) => {
+const BurgerConstructor = ({ ingredients, openModal }:any) => {
     return (
         <>
             <section className='pb-4 ml-4 mr-4 pl-8'>
@@ -18,7 +19,7 @@ const BurgerConstructor = (props:any) => {
                 <div className='scroll-inner custom-scroll'>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {
-                        props.ingredients.map((item:any) => {
+                        ingredients.map((item:any) => {
                             return item.type !== 'bun' && (
                                 <div key = {item._id} className={`${style.item} ml-4 mr-1 pl-8`}>
                                     <div className={style.drag}><DragIcon type="primary" /></div>
@@ -49,13 +50,18 @@ const BurgerConstructor = (props:any) => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <div>
-                    <Button type="primary" size="large" onClick={props.openModal}>
+                    <Button type="primary" size="large" onClick={openModal}>
                         Оформить заказ
                     </Button>
                 </div>
             </footer>
         </>
-    );
+    )
+}
+
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.object),
+    openModal: PropTypes.func
 }
 
 export default BurgerConstructor;

@@ -27,7 +27,7 @@ function AppHeader() {
                 </ul>
             </div>
         </header>
-    );
+    )
 }
 
 export default AppHeader;

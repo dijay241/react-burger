@@ -41,7 +41,7 @@ function App() {
         setOrderModal({
             show: false
         });
-    };
+    }
 
     function openIngredientModal(data:any) {
         setIngredientModal({
