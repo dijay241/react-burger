@@ -15,9 +15,15 @@ function BurgerIngredientsGroup(props:any) {
                             key = {item._id}
                             id = {item._id} 
                             image = {item.image}
+                            bigImage = {item.image_large}
                             price = {item.price}
                             name = {item.name}
+                            calories = {item.calories}
+                            carbohydrates = {item.carbohydrates}
+                            fat = {item.fat}
+                            proteins = {item.proteins}
                             counter = {1}
+                            openModal = {props.openModal}
                         />
                     )
                 } else return '' }
@@ -45,8 +51,34 @@ function BurgerIngredientsTabs() {
 }
 
 function BurgerIngredientsItem(props:any) {
+
+    function handleOpenModal() {
+        props.openModal({
+            image: props.bigImage,
+            name: props.name,
+            energy: [
+                {
+                    name: 'Калории, ккал',
+                    value: props.calories
+                },
+                {
+                    name: 'Белки, г',
+                    value: props.proteins
+                },
+                {
+                    name: 'Жиры, г',
+                    value: props.fat
+                },
+                {
+                    name: 'Углеводы, г',
+                    value: props.carbohydrates
+                }
+            ]
+        });            
+    }
+
     return (
-        <article key={props.id} className={style.item}>
+        <article key={props.id} className={style.item} onClick={handleOpenModal}>
             <p className='mb-1'><img src={props.image} alt='' /></p>
             <p className='mb-1 text text_type_digits-default'>
                 <span className='mr-2'>{props.price}</span>
@@ -76,6 +108,7 @@ const BurgerIngredients = (props:any) => {
                                     title = {group.title}
                                     name = {group.name}
                                     ingredients = {props.ingredients}
+                                    openModal = {props.openModal}
                                 />
                             )
                         })

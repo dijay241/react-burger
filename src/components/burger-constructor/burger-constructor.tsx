@@ -49,7 +49,7 @@ const BurgerConstructor = (props:any) => {
                     <CurrencyIcon type="primary" />
                 </div>
                 <div>
-                    <Button type="primary" size="large">
+                    <Button type="primary" size="large" onClick={props.openModal}>
                         Оформить заказ
                     </Button>
                 </div>

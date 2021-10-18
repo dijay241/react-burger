@@ -1,32 +1,26 @@
-import React, { useRef } from "react";
-import ReactDom from "react-dom";
+import React from 'react';
+import ReactDom from 'react-dom';
+import style from './modal.module.css'
+import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from './modal-overlay';
 
-const ModalOverlay = () => {
-    return (
-        <div>
+const modalRoot = document.getElementById("react-modals");
 
-        </div>
-    );
-}
-
-const Modal = ({ setShowModal }) => {
-    // close the modal when clicking outside the modal.
-    const modalRef = useRef();
-    const closeModal = (e) => {
-        if (e.target === modalRef.current) {
-            setShowModal(false);
-        }
-    };
-    //render the modal JSX in the portal div.
+const Modal = ({ header, children, closeModal }) => { 
     return ReactDom.createPortal(
-        <div className="container" ref={modalRef} onClick={closeModal}>
-            <div className="modal">
-                <h2>This is a Modal</h2>
-                <button onClick={() => setShowModal(false)}>X</button>
-            </div>
-            <ModalOverlay />
-        </div>,
-        document.getElementById("modal")
+        (
+            <>
+                <div className={`${style.modal} p-10`}>
+                    <header className={style.header}>
+                        <div className={`${style['header-text']} text text_type_main-large`}>{header}</div>
+                        <div className={style.close} onClick={closeModal}><CloseIcon /></div>
+                    </header>
+                    {children}
+                </div>
+                <ModalOverlay closeModal={closeModal} />
+            </>
+        ),
+        modalRoot
     );
 };
 

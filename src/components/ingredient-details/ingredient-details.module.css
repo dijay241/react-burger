@@ -1,0 +1,23 @@
+.image {
+    text-align: center;
+}
+
+.image img {
+    height: 240px;
+    width: auto;
+}
+
+.name {
+    text-align: center;
+}
+
+.energy {
+    display: flex;
+    column-gap: calc(4 * var(--offset-base-size));
+    justify-content: center;
+}
+
+.energy-item {
+    min-width: calc(28 * var(--offset-base-size));
+    text-align: center;
+}
