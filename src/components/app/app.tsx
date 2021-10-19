@@ -61,7 +61,12 @@ function App() {
     function getData(url:string) {
         setState({ ...state, hasError: false, isLoading: true });
         fetch(url)
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(res.status);
+            })
             .then(res => setState({ ...state, data: res.data, isLoading: false }))
             .catch(e => {
                 setState({ ...state, hasError: true, isLoading: false });

@@ -19,9 +19,9 @@ const BurgerConstructor = ({ ingredients, openModal }:any) => {
                 <div className='scroll-inner custom-scroll'>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {
-                        ingredients.map((item:any) => {
+                        ingredients.map((item:any, id:number) => {
                             return item.type !== 'bun' && (
-                                <div key = {item._id} className={`${style.item} ml-4 mr-1 pl-8`}>
+                                <div key = {id} className={`${style.item} ml-4 mr-1 pl-8`}>
                                     <div className={style.drag}><DragIcon type="primary" /></div>
                                     <ConstructorElement
                                         text={item.name}
