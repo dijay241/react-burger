@@ -2,6 +2,14 @@
     flex-grow: 1;
 }
 
+.content {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
 .item {
     position: relative;
     display: flex;
@@ -22,11 +30,21 @@
     column-gap: calc(10 * var(--offset-base-size));
 }
 
-.total-price {
+.totalPrice {
     display: flex;
 }
 
-.total-price svg {
+.totalPrice svg {
     width: calc(9 * var(--offset-base-size));
     height: calc(9 * var(--offset-base-size));
+}
+
+.emptyBun {
+    height: calc(20 * var(--offset-base-size));
+    line-height: calc(20 * var(--offset-base-size));
+    text-align: center;
+}
+
+.emptyItem {
+    text-align: center;
 }
