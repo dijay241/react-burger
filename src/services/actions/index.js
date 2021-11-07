@@ -33,6 +33,14 @@ const API_URL = 'https://norma.nomoreparties.space/api';
 const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
 const GET_ORDER_API_URL = API_URL + '/orders';
 
+
+function checkResponse(res) {
+    if (res.ok) {
+        return res.json();
+    }
+    return Promise.reject(res.status);
+}
+
 export function getOrderNumber() {
     return function(dispatch, state) {
         dispatch({
@@ -54,12 +62,7 @@ export function getOrderNumber() {
             },
             body: JSON.stringify(data),
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(res.status);
-            })
+            .then(checkResponse)
             .then(res => {
                 dispatch({
                     type: GET_ORDER_SUCCESS,
@@ -96,12 +99,7 @@ export function getIngredients() {
             type: GET_INGREDIENTS_REQUEST
         });
         fetch(GET_INGREDIENTS_API_URL)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(res.status);
-            })
+            .then(checkResponse)
             .then(res => {
                 dispatch({
                     type: GET_INGREDIENTS_SUCCESS,
