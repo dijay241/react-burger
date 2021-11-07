@@ -1,12 +1,24 @@
 import React from 'react';
 import style from './order-details.module.css';
 import checkmark from '../../images/order-icon.png';
+import {useSelector} from "react-redux";
 
 const OrderDetails = () => {
+
+    const {orderNumber, orderRequest} = useSelector((state) => ({
+        orderNumber: state.order.number,
+        orderRequest: state.order.request
+    }));
+
     return (
         <div className={`${style.order} pt-4 pb-20`}>
             <div className={`${style.number} text text_type_digits-large mb-8`}>
-                034536
+                {
+                    orderRequest ?
+                        <div>...</div>
+                        :
+                        orderNumber
+                }
             </div>
             <div className='text text_type_main-medium mb-15'>
                 идентификатор заказа

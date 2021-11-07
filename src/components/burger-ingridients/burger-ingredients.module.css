@@ -9,4 +9,5 @@
     text-align: center;
     position: relative;
     cursor: pointer;
+    background: var(--background-alt);
 }
