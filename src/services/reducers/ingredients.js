@@ -12,7 +12,9 @@ import {
     INCREASE_ITEM_COUNTER,
     DECREASE_ITEM_COUNTER,
     INCREASE_BUN_COUNTER,
-    RESET_BUN_COUNTER
+    RESET_BUN_COUNTER,
+    RESET_CONSTRUCTOR_ITEMS,
+    RESET_ITEMS_COUNTERS
 } from "../actions";
 
 const initialState = {
@@ -89,12 +91,27 @@ const ingredientsReducer = (state = initialState, action) => {
                 constructorItems: [...state.constructorItems].filter((item, index) => index !== action.index)
             }
         }
+        case RESET_CONSTRUCTOR_ITEMS: {
+            return {
+                ...state,
+                constructorItems: []
+            }
+        }
         case DECREASE_ITEM_COUNTER: {
             return {
                 ...state,
                 items: [...state.items].map(item => ({
                     ...item,
                     counter: item._id === action.id && item.counter ? item.counter - 1 : item.counter
+                }))
+            }
+        }
+        case RESET_ITEMS_COUNTERS: {
+            return {
+                ...state,
+                items: [...state.items].map(item => ({
+                    ...item,
+                    counter: 0
                 }))
             }
         }

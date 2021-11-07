@@ -19,16 +19,19 @@ export const ADD_CONSTRUCTOR_ITEM = 'ADD_CONSTRUCTOR_ITEM';
 export const DELETE_CONSTRUCTOR_ITEM = 'DELETE_CONSTRUCTOR_ITEM';
 export const ADD_CONSTRUCTOR_BUN = 'ADD_CONSTRUCTOR_BUN';
 export const DELETE_CONSTRUCTOR_BUN = 'DELETE_CONSTRUCTOR_BUN';
+export const RESET_CONSTRUCTOR_ITEMS = 'RESET_CONSTRUCTOR_ITEMS';
 
 export const INCREASE_ITEM_COUNTER = 'INCREASE_ITEM_COUNTER';
 export const DECREASE_ITEM_COUNTER = 'DECREASE_ITEM_COUNTER';
 export const RESET_BUN_COUNTER = 'RESET_BUN_COUNTER';
 export const INCREASE_BUN_COUNTER = 'INCREASE_BUN_COUNTER';
+export const RESET_ITEMS_COUNTERS = 'RESET_ITEMS_COUNTERS';
 
 export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER';
 
-const GET_INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
-const GET_ORDER_API_URL = 'https://norma.nomoreparties.space/api/orders';
+const API_URL = 'https://norma.nomoreparties.space/api';
+const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
+const GET_ORDER_API_URL = API_URL + '/orders';
 
 export function getOrderNumber() {
     return function(dispatch, state) {
@@ -64,6 +67,18 @@ export function getOrderNumber() {
                 });
                 dispatch({
                     type: SHOW_ORDER_MODAL
+                });
+                dispatch({
+                    type: DELETE_CONSTRUCTOR_BUN
+                });
+                dispatch({
+                    type: RESET_CONSTRUCTOR_ITEMS
+                });
+                dispatch({
+                    type: UPDATE_TOTAL_PRICE
+                });
+                dispatch({
+                    type: RESET_ITEMS_COUNTERS
                 });
             })
             .catch(e => {

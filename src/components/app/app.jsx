@@ -21,10 +21,12 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const {items, orderModalShow, ingredientModalShow} = useSelector((state) => ({
+    const {items, constructorItems, constructorBun, orderModalShow, ingredientModalShow} = useSelector((state) => ({
         items: state.ingredients.items,
         orderModalShow: state.order.modalShow,
         ingredientModalShow: state.currentIngredient.modalShow,
+        constructorItems: state.ingredients.constructorItems,
+        constructorBun: state.ingredients.constructorBun
     }));
 
     function closeModal() {
@@ -45,9 +47,12 @@ function App() {
 
     const openOrderModal = useCallback(
         () => {
-            dispatch(getOrderNumber());
+            constructorItems.length && Object.keys(constructorBun).length ?
+                dispatch(getOrderNumber())
+                :
+                alert('Бургер не получится сделать без булки и ингридиентов.');
         },
-        [dispatch]
+        [dispatch, constructorItems, constructorBun]
     );
 
     useEffect(() => {

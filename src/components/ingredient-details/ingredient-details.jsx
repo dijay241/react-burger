@@ -13,8 +13,8 @@ const EnergyItem = ({ name, value }) => {
 }
 
 EnergyItem.propTypes = {
-    name: PropTypes.string,
-    value: PropTypes.number
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired
 }
 
 const IngredientDetails = () => {

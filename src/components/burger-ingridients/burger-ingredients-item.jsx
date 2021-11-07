@@ -37,13 +37,13 @@ function BurgerIngredientsItem({ openModal, id, type, image, price, counter, nam
 }
 
 BurgerIngredientsItem.propTypes = {
-    openModal: PropTypes.func,
-    id: PropTypes.string,
-    type: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-    counter: PropTypes.any,
-    name: PropTypes.string
+    openModal: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    counter: PropTypes.any.isRequired,
+    name: PropTypes.string.isRequired
 }
 
 export default BurgerIngredientsItem

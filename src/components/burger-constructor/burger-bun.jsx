@@ -44,7 +44,7 @@ const BurgerBun = ({type}) => {
                     <ConstructorElement
                         type={type}
                         isLocked={true}
-                        text={bun.name}
+                        text={`${bun.name} ${type === 'top' ? ' (верх)' : ' (низ)'}`}
                         price={bun.price}
                         thumbnail={bun.image_mobile}
                     />
@@ -56,7 +56,7 @@ const BurgerBun = ({type}) => {
 }
 
 BurgerBun.propTypes = {
-    type: PropTypes.string
+    type: PropTypes.string.isRequired
 }
 
 export default BurgerBun;

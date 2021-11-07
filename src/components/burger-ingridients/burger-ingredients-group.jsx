@@ -32,10 +32,10 @@ const BurgerIngredientsGroup = React.forwardRef( ({name, title, ingredients, ope
 });
 
 BurgerIngredientsGroup.propTypes = {
-    title: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.object),
-    name: PropTypes.string,
-    openModal: PropTypes.func
+    title: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+    name: PropTypes.string.isRequired,
+    openModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredientsGroup;
