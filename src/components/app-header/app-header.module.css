@@ -47,6 +47,7 @@
     cursor: pointer;
     color: var(--text-inactive-color);
     border-radius: var(--common-border-radius);
+    text-decoration: none;
 }
 
 .nav-item:not(.nav-item-active):hover {

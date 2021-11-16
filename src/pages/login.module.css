@@ -1,0 +1,10 @@
+.container {
+    padding-top: calc(45 * var(--offset-base-size));
+    text-align: center;
+    flex-grow: 1;
+    max-width: calc(120 * var(--offset-base-size));
+}
+
+.container .input__container {
+    width: 100%;
+}
