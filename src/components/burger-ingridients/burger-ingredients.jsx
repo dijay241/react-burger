@@ -5,7 +5,7 @@ import BurgerIngredientsTabs from './burger-ingredients-tabs';
 import BurgerIngredientsGroup from './burger-ingredients-group';
 import {SET_CURRENT_TAB} from '../../services/actions'
 
-const BurgerIngredients = ({ openModal }) => {
+const BurgerIngredients = () => {
 
     const dispatch = useDispatch();
     const tabsRef = useRef(null);
@@ -61,12 +61,11 @@ const BurgerIngredients = ({ openModal }) => {
                             ingredients = {
                                 items && items.filter((item) => item.type === group.name)
                             }
-                            openModal = {openModal}
                         />
                     )
                 }
             )
-    }, [groups, items, itemsRequest, openModal]);
+    }, [groups, items, itemsRequest]);
 
     return (
         <>
@@ -81,10 +80,6 @@ const BurgerIngredients = ({ openModal }) => {
             </section>
         </>
     )
-}
-
-BurgerIngredients.propTypes = {
-    openModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

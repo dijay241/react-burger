@@ -127,14 +127,14 @@ export function getIngredients() {
     };
 }
 
-export function forgotPassword() {
-    return function(dispatch, state) {
+export function forgotPassword(email) {
+    return function(dispatch) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
         });
 
         const data = {
-            "email": ''
+            'email': email
         }
 
         fetch(FORGOT_PASSWORD_API_URL, {
@@ -146,6 +146,7 @@ export function forgotPassword() {
         })
             .then(checkResponse)
             .then(res => {
+                console.log(res);
                 dispatch({
                     type: FORGOT_PASSWORD_SUCCESS
                 });

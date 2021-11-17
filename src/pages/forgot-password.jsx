@@ -1,9 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from "react-router-dom";
+import {forgotPassword} from '../services/actions'
 
 const ForgotPasswordPage = () => {
+
+    const dispatch = useDispatch();
+    const emailRef = useRef(null);
+
     const [emailValue, setEmailValue] = useState('');
+
+    const onSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            dispatch(forgotPassword('www@www.com'));
+        },
+        [dispatch]
+    );
 
     return (
         <section className='form-container'>
@@ -19,7 +33,7 @@ const ForgotPasswordPage = () => {
                     />
                 </div>
                 <div className='pb-20'>
-                    <Button type="primary" size="medium">Восстановить</Button>
+                    <Button type="primary" size="medium" onClick={onSubmit}>Восстановить</Button>
                 </div>
             </form>
             <p>Вспомнили пароль? <Link to="/login">Войти</Link></p>
