@@ -29,10 +29,19 @@ export const RESET_ITEMS_COUNTERS = 'RESET_ITEMS_COUNTERS';
 
 export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER';
 
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
+
 const API_URL = 'https://norma.nomoreparties.space/api';
 const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
 const GET_ORDER_API_URL = API_URL + '/orders';
-
+const FORGOT_PASSWORD_API_URL = API_URL + '/password-reset';
+const RESET_PASSWORD_API_URL = API_URL + '/password-reset/reset';
 
 function checkResponse(res) {
     if (res.ok) {
@@ -112,6 +121,70 @@ export function getIngredients() {
             .catch(e => {
                 dispatch({
                     type: GET_INGREDIENTS_ERROR
+                });
+                console.error(e);
+            });
+    };
+}
+
+export function forgotPassword() {
+    return function(dispatch, state) {
+        dispatch({
+            type: FORGOT_PASSWORD_REQUEST
+        });
+
+        const data = {
+            "email": ''
+        }
+
+        fetch(FORGOT_PASSWORD_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkResponse)
+            .then(res => {
+                dispatch({
+                    type: FORGOT_PASSWORD_SUCCESS
+                });
+            })
+            .catch(e => {
+                dispatch({
+                    type: FORGOT_PASSWORD_ERROR
+                });
+                console.error(e);
+            });
+    };
+}
+
+export function resetPassword() {
+    return function(dispatch, state) {
+        dispatch({
+            type: RESET_PASSWORD_REQUEST
+        });
+
+        const data = {
+            "email": ''
+        }
+
+        fetch(RESET_PASSWORD_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkResponse)
+            .then(res => {
+                dispatch({
+                    type: RESET_PASSWORD_SUCCESS
+                });
+            })
+            .catch(e => {
+                dispatch({
+                    type: RESET_PASSWORD_ERROR
                 });
                 console.error(e);
             });

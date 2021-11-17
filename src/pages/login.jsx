@@ -1,38 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './login.module.css';
+import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const LoginPage = () => {
-    const [value, setValue] = useState('value');
-    const inputRef = useRef(null);
+    const [emailValue, setEmailValue] = useState('');
+    const [passwordValue, setPasswordValue] = useState('');
 
     return (
-        <section className={style.container}>
+        <section className='form-container'>
             <h1 className='text text_type_main-medium pb-6'>Вход</h1>
             <form>
                 <div className='pb-6'>
                     <Input
                         type={'email'}
                         placeholder={'E-mail'}
-                        onChange={e => setValue(e.target.value)}
-                        value={value}
-                        name={'name'}
-                        error={false}
-                        ref={inputRef}
-                        errorText={'Ошибка'}
+                        onChange={e => setEmailValue(e.target.value)}
+                        value={emailValue}
+                        name={'email'}
                         />
                 </div>
                 <div className='pb-6'>
-                    <Input
-                        type={'password'}
-                        placeholder={'Пароль'}
-                        onChange={e => setValue(e.target.value)}
-                        value={value}
-                        name={'name'}
-                        error={false}
-                        ref={inputRef}
-                        errorText={'Ошибка'}
+                    <PasswordInput
+                        onChange={e => setPasswordValue(e.target.value)}
+                        value={passwordValue}
+                        name={'password'}
                         />
                 </div>
                 <div className='pb-20'>
