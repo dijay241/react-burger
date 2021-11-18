@@ -29,8 +29,8 @@ function AppHeader() {
                 </figure>
                 <ul className={`${style.nav} ${style['nav-right']} inline-list`}>
                     <li>
-                        <Link to="/profile" className={`${style['nav-item']} pt-4 pb-4 pl-5 pr-5 ${path === '/profile' && style['nav-item-active']}`}>
-                            <ProfileIcon type={path === '/profile' ? 'primary' : 'secondary'} />
+                        <Link to="/profile" className={`${style['nav-item']} pt-4 pb-4 pl-5 pr-5 ${(path === '/profile' || path === '/profile/orders') && style['nav-item-active']}`}>
+                            <ProfileIcon type={(path === '/profile' || path === '/profile/orders') ? 'primary' : 'secondary'} />
                             <span className={`${style['nav-item-text']} ml-2 text`}>Личный кабинет</span>
                         </Link>
                     </li>

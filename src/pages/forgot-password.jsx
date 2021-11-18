@@ -1,5 +1,5 @@
-import React, {useState, useCallback, useRef} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState, useCallback} from 'react';
+import { useDispatch } from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from "react-router-dom";
 import {forgotPassword} from '../services/actions'
@@ -7,16 +7,17 @@ import {forgotPassword} from '../services/actions'
 const ForgotPasswordPage = () => {
 
     const dispatch = useDispatch();
-    const emailRef = useRef(null);
-
     const [emailValue, setEmailValue] = useState('');
 
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault();
-            dispatch(forgotPassword('www@www.com'));
+            emailValue ?
+                dispatch(forgotPassword(emailValue))
+                :
+                alert('Надо бы заполнить email');
         },
-        [dispatch]
+        [dispatch, emailValue]
     );
 
     return (

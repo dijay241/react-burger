@@ -11,3 +11,15 @@
     cursor: pointer;
     background: var(--background-alt);
 }
+
+.item:hover {
+    opacity: .75;
+}
+
+.item-link {
+    color: var(--text-primary-color);
+}
+
+.item-link:hover {
+    color: var(--text-primary-color);
+}

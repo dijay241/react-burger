@@ -7,8 +7,7 @@ import BurgerConstructor from '../components/burger-constructor/burger-construct
 import style from '../components/app/app.module.css';
 import {
     getIngredients,
-    getOrderNumber,
-    SHOW_CURRENT_ITEM_MODAL
+    getOrderNumber
 } from '../services/actions';
 
 const MainPage = () => {
@@ -20,13 +19,6 @@ const MainPage = () => {
         constructorItems: state.ingredients.constructorItems,
         constructorBun: state.ingredients.constructorBun
     }));
-
-    function openIngredientModal(id) {
-        dispatch({
-            type: SHOW_CURRENT_ITEM_MODAL,
-            id
-        });
-    }
 
     const openOrderModal = useCallback(
         () => {

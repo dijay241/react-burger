@@ -24,13 +24,7 @@ EnergyItem.propTypes = {
 const IngredientDetails = () => {
 
     const dispatch = useDispatch();
-
     const { id } = useParams();
-    console.log(id);
-
-    // const {id} = useSelector((state) => ({
-    //     id: state.currentIngredient.id
-    // }));
 
     const {items} = useSelector((state) => ({
         items: state.ingredients.items

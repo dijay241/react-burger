@@ -9,9 +9,6 @@ export const SHOW_ORDER_MODAL = 'SHOW_ORDER_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 export const UPDATE_TOTAL_PRICE = 'UPDATE_TOTAL_PRICE';
 
-export const SHOW_CURRENT_ITEM_MODAL = 'SHOW_CURRENT_ITEM_MODAL';
-export const CLOSE_CURRENT_ITEM_MODAL = 'CLOSE_CURRENT_ITEM_MODAL';
-
 export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
 
 export const REORDER_CONSTRUCTOR_ITEMS = 'REORDER_CONSTRUCTOR_ITEMS';
@@ -37,11 +34,16 @@ export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
+
 const API_URL = 'https://norma.nomoreparties.space/api';
 const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
 const GET_ORDER_API_URL = API_URL + '/orders';
 const FORGOT_PASSWORD_API_URL = API_URL + '/password-reset';
 const RESET_PASSWORD_API_URL = API_URL + '/password-reset/reset';
+const REGISTER_API_URL = API_URL + '/auth/register';
 
 function checkResponse(res) {
     if (res.ok) {
@@ -129,45 +131,48 @@ export function getIngredients() {
 
 export function forgotPassword(email) {
     return function(dispatch) {
-        dispatch({
-            type: FORGOT_PASSWORD_REQUEST
-        });
+        if(email) {
 
-        const data = {
-            'email': email
-        }
-
-        fetch(FORGOT_PASSWORD_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(checkResponse)
-            .then(res => {
-                console.log(res);
-                dispatch({
-                    type: FORGOT_PASSWORD_SUCCESS
-                });
-            })
-            .catch(e => {
-                dispatch({
-                    type: FORGOT_PASSWORD_ERROR
-                });
-                console.error(e);
+            dispatch({
+                type: FORGOT_PASSWORD_REQUEST
             });
+
+            const data = {
+                'email': email
+            }
+
+            fetch(FORGOT_PASSWORD_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(checkResponse)
+                .then(res => {
+                    dispatch({
+                        type: FORGOT_PASSWORD_SUCCESS
+                    });
+                })
+                .catch(e => {
+                    dispatch({
+                        type: FORGOT_PASSWORD_ERROR
+                    });
+                    console.error(e);
+                });
+        }
     };
 }
 
-export function resetPassword() {
-    return function(dispatch, state) {
+export function resetPassword(password, code) {
+    return function(dispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
 
         const data = {
-            "email": ''
+            "password": password,
+            "token": code
         }
 
         fetch(RESET_PASSWORD_API_URL, {
@@ -179,6 +184,7 @@ export function resetPassword() {
         })
             .then(checkResponse)
             .then(res => {
+                console.log(res);
                 dispatch({
                     type: RESET_PASSWORD_SUCCESS
                 });
@@ -186,6 +192,41 @@ export function resetPassword() {
             .catch(e => {
                 dispatch({
                     type: RESET_PASSWORD_ERROR
+                });
+                console.error(e);
+            });
+    };
+}
+
+export function registerUser(name, email, password) {
+    return function(dispatch) {
+        dispatch({
+            type: REGISTER_REQUEST
+        });
+
+        const data = {
+            "email": email,
+            "password": password,
+            "name": name
+        }
+
+        fetch(REGISTER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkResponse)
+            .then(res => {
+                console.log(res);
+                dispatch({
+                    type: REGISTER_SUCCESS
+                });
+            })
+            .catch(e => {
+                dispatch({
+                    type: REGISTER_ERROR
                 });
                 console.error(e);
             });
