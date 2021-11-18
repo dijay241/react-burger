@@ -65,9 +65,7 @@ const IngredientDetails = () => {
             <div className={style.energy}> 
                 {
                     energy.map( (item, id) => {
-                        return (
-                            <EnergyItem key={id} name={item.name} value={item.value} />
-                        )
+                        return item.value && item.name ? <EnergyItem key={id} name={item.name} value={item.value} /> : ''
                     })
                 }
             </div>

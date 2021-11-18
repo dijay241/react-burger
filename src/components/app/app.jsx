@@ -12,6 +12,8 @@ import {
     IngredientsPage, 
     ForgotPasswordPage, 
     ProfilePage, 
+    ProfileLayout,
+    ProfileOrdersPage,
     RegisterPage, 
     ResetPasswordPage, 
     Page404 
@@ -41,7 +43,10 @@ function App() {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/profile" element={<ProfileLayout />}>
+                            <Route path="/profile" exact element={<ProfilePage />} />
+                            <Route path="/profile/orders" exact element={<ProfileOrdersPage />} />
+                        </Route>
                         <Route path="/reset-password" element={<ResetPasswordPage />} />
                         <Route path="/ingredients/:id" element={<IngredientsPage />} />
                         <Route path="*" element={<Page404 />} />

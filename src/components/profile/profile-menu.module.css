@@ -1,0 +1,19 @@
+.menu-item {
+    display: flex;
+    height: calc(16 * var(--offset-base-size));
+    color: var(--text-inactive-color);
+    align-items: center;
+}
+
+.menu-item:hover {
+    color: var(--text-primary-color);
+}
+
+.menu-item.menu-item-active {
+    color: var(--text-primary-color);
+    cursor: default;
+}
+
+.note {
+    opacity: .4;
+}

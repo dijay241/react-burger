@@ -1,3 +1,5 @@
+import {GET_INGREDIENTS_API_URL, GET_ORDER_API_URL, checkResponse} from '../api';
+
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_FAILED';
@@ -25,32 +27,6 @@ export const INCREASE_BUN_COUNTER = 'INCREASE_BUN_COUNTER';
 export const RESET_ITEMS_COUNTERS = 'RESET_ITEMS_COUNTERS';
 
 export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER';
-
-export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
-
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
-
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_ERROR = 'REGISTER_ERROR';
-
-const API_URL = 'https://norma.nomoreparties.space/api';
-const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
-const GET_ORDER_API_URL = API_URL + '/orders';
-const FORGOT_PASSWORD_API_URL = API_URL + '/password-reset';
-const RESET_PASSWORD_API_URL = API_URL + '/password-reset/reset';
-const REGISTER_API_URL = API_URL + '/auth/register';
-
-function checkResponse(res) {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(res.status);
-}
 
 export function getOrderNumber() {
     return function(dispatch, state) {
@@ -123,110 +99,6 @@ export function getIngredients() {
             .catch(e => {
                 dispatch({
                     type: GET_INGREDIENTS_ERROR
-                });
-                console.error(e);
-            });
-    };
-}
-
-export function forgotPassword(email) {
-    return function(dispatch) {
-        if(email) {
-
-            dispatch({
-                type: FORGOT_PASSWORD_REQUEST
-            });
-
-            const data = {
-                'email': email
-            }
-
-            fetch(FORGOT_PASSWORD_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-                .then(checkResponse)
-                .then(res => {
-                    dispatch({
-                        type: FORGOT_PASSWORD_SUCCESS
-                    });
-                })
-                .catch(e => {
-                    dispatch({
-                        type: FORGOT_PASSWORD_ERROR
-                    });
-                    console.error(e);
-                });
-        }
-    };
-}
-
-export function resetPassword(password, code) {
-    return function(dispatch) {
-        dispatch({
-            type: RESET_PASSWORD_REQUEST
-        });
-
-        const data = {
-            "password": password,
-            "token": code
-        }
-
-        fetch(RESET_PASSWORD_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(checkResponse)
-            .then(res => {
-                console.log(res);
-                dispatch({
-                    type: RESET_PASSWORD_SUCCESS
-                });
-            })
-            .catch(e => {
-                dispatch({
-                    type: RESET_PASSWORD_ERROR
-                });
-                console.error(e);
-            });
-    };
-}
-
-export function registerUser(name, email, password) {
-    return function(dispatch) {
-        dispatch({
-            type: REGISTER_REQUEST
-        });
-
-        const data = {
-            "email": email,
-            "password": password,
-            "name": name
-        }
-
-        fetch(REGISTER_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(checkResponse)
-            .then(res => {
-                console.log(res);
-                dispatch({
-                    type: REGISTER_SUCCESS
-                });
-            })
-            .catch(e => {
-                dispatch({
-                    type: REGISTER_ERROR
                 });
                 console.error(e);
             });

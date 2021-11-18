@@ -4,37 +4,24 @@
     max-width: 1240px;
     justify-content: center;
     gap: calc(15 * var(--offset-base-size));
-    padding-right: calc(80 * var(--offset-base-size) + 15 * var(--offset-base-size));
-    align-self: center;
     align-items: flex-start;
+}
+
+.content {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
 }
 
 .form-container {
     align-self: auto;
+    margin-top: calc(30 * var(--offset-base-size));
 }
 
 .menu {
     width: calc(80 * var(--offset-base-size));
-}
-
-.menu-item {
-    display: flex;
-    height: calc(16 * var(--offset-base-size));
-    color: var(--text-inactive-color);
-    align-items: center;
-}
-
-.menu-item:hover {
-    color: var(--text-primary-color);
-}
-
-.menu-item.menu-item-active {
-    color: var(--text-primary-color);
-    cursor: default;
-}
-
-.note {
-    opacity: .4;
+    padding-top: calc(30 * var(--offset-base-size));
+    height: 100%;
 }
 
 .buttons {

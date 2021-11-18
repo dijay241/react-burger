@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {registerUser} from "../services/actions";
+import {registerUser} from "../services/actions/auth";
 
 const RegisterPage = () => {
 

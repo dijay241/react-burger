@@ -7,5 +7,7 @@ import RegisterPage from './register';
 import ResetPasswordPage from './reset-password';
 import Page404 from './page-404';
 import Layout from './layout';
+import ProfileLayout from './profile-layout';
+import ProfileOrdersPage from './profile-orders';
 
-export { Layout, LoginPage, MainPage, IngredientsPage, ForgotPasswordPage, ProfilePage, RegisterPage, ResetPasswordPage, Page404 };
+export { Layout, LoginPage, MainPage, IngredientsPage, ForgotPasswordPage, ProfilePage, ProfileOrdersPage, ProfileLayout, RegisterPage, ResetPasswordPage, Page404 };
