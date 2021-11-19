@@ -12,7 +12,9 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
-    LOGOUT_SUCCESS
+    LOGOUT_SUCCESS,
+    GET_USER_SUCCESS,
+    UPDATE_USER_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
@@ -35,9 +37,7 @@ const initialState = {
     loginFailed: false,
 
     isAuthenticated: false,
-    user: {},
-    accessToken: null,
-    refreshToken: null
+    user: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -124,7 +124,18 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: false,
-                user: {}
+                user: null
+            }
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+                user: action.user
+            }
+        case UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state

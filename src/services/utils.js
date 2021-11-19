@@ -1,6 +1,6 @@
 export function getCookie(name) {
     const matches = document.cookie.match(
-        new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
+        new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)') // eslint-disable-line
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
@@ -10,7 +10,7 @@ export function setCookie(name, value, props) {
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
         const d = new Date();
-        d.setTime(d.getTime() + exp * 1000);
+        d.setTime(d.getTime() + exp * 1000 * 60);
         exp = props.expires = d;
     }
     if (exp && exp.toUTCString) {

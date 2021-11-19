@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useEffect} from 'react';
+import React, {useCallback, useState} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from "react-router-dom";
 import {resetPassword} from "../services/actions/auth";
@@ -24,7 +24,7 @@ const ResetPasswordPage = () => {
     return (
         <section className='form-container'>
             <h1 className='text text_type_main-medium pb-6'>Восстановление пароля</h1>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className='mb-6'>
                     <PasswordInput
                         onChange={e => setPasswordValue(e.target.value)}
@@ -42,7 +42,7 @@ const ResetPasswordPage = () => {
                     />
                 </div>
                 <div className='mb-20'>
-                    <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
+                    <Button type="primary" size="medium">Сохранить</Button>
                 </div>
             </form>
             <p>Вспомнили пароль? <Link to="/login">Войти</Link></p>

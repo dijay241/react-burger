@@ -1,24 +1,33 @@
-import React, {useState,useRef} from 'react';
+import React, {useState,useRef,useCallback} from 'react';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './profile.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import {updateUser} from '../services/actions/auth';
 
 const ProfilePage = () => {
+    const dispatch = useDispatch();
     const formRef = useRef(null);
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
+    const {user} = useSelector((state) => ({
+        user: state?.auth.user
+    }));
+
     const [dataChanged, setDataChanged] = useState(false);
 
-    const [nameValue, setNameValue] = useState('Марк');
+    const [nameValue, setNameValue] = useState(user.name);
     const [nameDisabled, setNameDisabled] = useState(true);
 
-    const [emailValue, setEmailValue] = useState('my@email.com');
+    const [emailValue, setEmailValue] = useState(user.email);
     const [emailDisabled, setEmailDisabled] = useState(true);
 
-    const [passwordValue, setPasswordValue] = useState('qwerty');
+    const [passwordValue, setPasswordValue] = useState('reset_me');
     const [passwordDisabled, setPasswordDisabled] = useState(true);
     const [passwordShown, setPasswordShown] = useState(false);
+
+    
 
     const onDataChange = (value, ref) => {
         setDataChanged(true);
@@ -51,6 +60,8 @@ const ProfilePage = () => {
                 setPasswordDisabled(true);
                 break;
             case 'password':
+                passwordValue === 'reset_me' && setPasswordValue('');
+                passwordValue === '' && setPasswordValue('reset_me');
                 setPasswordDisabled(!passwordDisabled);
                 setEmailDisabled(true);
                 setNameDisabled(true);
@@ -68,16 +79,26 @@ const ProfilePage = () => {
     const onReset = (e) => {
         e.preventDefault();
         setDataChanged(false);
+        setNameValue(user.name);
+        setEmailValue(user.email);
+        setPasswordValue('reset_me');
     }
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        setDataChanged(false);
-    }
+    const onSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            setDataChanged(false);
+            emailValue && nameValue ?
+                dispatch(updateUser(nameValue, emailValue, passwordValue === 'reset_me' ? '' : passwordValue))
+                :
+                alert('Надо заполнить имя и логин');
+        },
+        [dispatch, emailValue, nameValue, passwordValue]
+    );
 
     return (
         <div className={`${style['form-container']} form-container`}>
-            <form ref={formRef}>
+            <form ref={formRef} onSubmit={onSubmit}>
                 <div className='pb-6'>
                     <Input
                         type={'text'}
@@ -123,7 +144,7 @@ const ProfilePage = () => {
                 {
                     dataChanged && (
                         <div className={style.buttons}>
-                            <Button type="primary" size="medium" onClick={onSubmit}>Сохранить</Button>
+                            <Button type="primary" size="medium">Сохранить</Button>
                             <Button type="secondary" size="medium" onClick={onReset}>Отмена</Button>
                         </div>
                     )

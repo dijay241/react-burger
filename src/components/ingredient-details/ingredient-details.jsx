@@ -3,9 +3,7 @@ import style from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from "react-redux";
 import {useParams} from 'react-router-dom';
-import {
-    getIngredients
-} from '../../services/actions';
+import {getIngredients} from '../../services/actions';
 
 const EnergyItem = ({ name, value }) => {
     return (

@@ -9,10 +9,8 @@ function ProtectedRoute() {
         user: state?.auth.user
     }));
 
-    console.log(isAuthenticated);
-    console.log(user);
-
     if (!isAuthenticated || !Boolean(user)) {
+        console.log('ok');
         return <Navigate to="/login" replace={true} state={{ from: location }} />;
     }
 

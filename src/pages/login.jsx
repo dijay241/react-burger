@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from "react-redux";
 import {logIn} from "../services/actions/auth";

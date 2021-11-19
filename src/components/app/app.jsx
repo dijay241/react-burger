@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { CLOSE_ORDER_MODAL } from '../../services/actions';
+import { getUser } from '../../services/actions/auth';
 import Modal from '../modal/modal';
 import IngredientModal from '../ingredient-details/ingredient-modal';
 import OrderDetails from '../order-details/order-details';
@@ -20,6 +21,7 @@ import {
     ResetPasswordPage, 
     Page404 
 } from '../../pages';
+import {getCookie} from '../../services/utils';
 
 function App() {
 
@@ -27,8 +29,10 @@ function App() {
     const location = useLocation();
     const ingredientModalShow = location.state?.ingredientModalShow;
 
-    const {orderModalShow} = useSelector((state) => ({
-        orderModalShow: state.order.modalShow
+    const {orderModalShow, isAuthenticated, user} = useSelector((state) => ({
+        orderModalShow: state?.order.modalShow,
+        isAuthenticated: state?.auth.isAuthenticated,
+        user: state?.auth.user
     }));
 
     function closeModal() {
@@ -36,6 +40,12 @@ function App() {
             type: CLOSE_ORDER_MODAL
         });
     }
+
+    useEffect(() => {
+        if(getCookie('accessToken') && (!isAuthenticated || !Boolean(user))) {
+            dispatch(getUser());
+        }
+    }, [dispatch, isAuthenticated, user]);
 
     return (
             <>

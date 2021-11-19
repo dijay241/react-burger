@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import style from './profile-menu.module.css';
-import {logOut, registerUser} from '../../services/actions/auth';
+import {logOut} from '../../services/actions/auth';
 import {useDispatch} from "react-redux";
 
 const ProfileMenu = () => {
@@ -14,9 +14,9 @@ const ProfileMenu = () => {
         (e) => {
             e.preventDefault();
             dispatch(logOut());
-            navigate('/', {replace: true, state: null});
+            navigate('/login', {replace: true, state: {from: '/login'}});
         },
-        [dispatch]
+        [dispatch, navigate]
     );
 
     return (

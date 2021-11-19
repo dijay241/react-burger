@@ -23,7 +23,7 @@ const ForgotPasswordPage = () => {
     return (
         <section className='form-container'>
             <h1 className='text text_type_main-medium pb-6'>Восстановление пароля</h1>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className='pb-6'>
                     <Input
                         type={'email'}
@@ -34,7 +34,7 @@ const ForgotPasswordPage = () => {
                     />
                 </div>
                 <div className='pb-20'>
-                    <Button type="primary" size="medium" onClick={onSubmit}>Восстановить</Button>
+                    <Button type="primary" size="medium">Восстановить</Button>
                 </div>
             </form>
             <p>Вспомнили пароль? <Link to="/login">Войти</Link></p>

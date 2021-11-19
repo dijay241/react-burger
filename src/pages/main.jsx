@@ -31,7 +31,7 @@ const MainPage = () => {
                 alert('Бургер не получится сделать без булки и ингридиентов.');
             }
         },
-        [dispatch, constructorItems, constructorBun]
+        [dispatch, constructorItems.length, constructorBun, isAuthenticated, navigate]
     );
 
     useEffect(() => {

@@ -1,4 +1,5 @@
 import {GET_INGREDIENTS_API_URL, GET_ORDER_API_URL, checkResponse} from '../api';
+import {getCookie} from '../utils';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -44,32 +45,45 @@ export function getOrderNumber() {
 
         fetch(GET_ORDER_API_URL, {
             method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: getCookie('accessToken')
             },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
             body: JSON.stringify(data),
         })
-            .then(checkResponse)
-            .then(res => {
-                dispatch({
-                    type: GET_ORDER_SUCCESS,
-                    number: res.order.number
-                });
-                dispatch({
-                    type: SHOW_ORDER_MODAL
-                });
-                dispatch({
-                    type: DELETE_CONSTRUCTOR_BUN
-                });
-                dispatch({
-                    type: RESET_CONSTRUCTOR_ITEMS
-                });
-                dispatch({
-                    type: UPDATE_TOTAL_PRICE
-                });
-                dispatch({
-                    type: RESET_ITEMS_COUNTERS
-                });
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        number: data.order.number
+                    });
+                    dispatch({
+                        type: SHOW_ORDER_MODAL
+                    });
+                    dispatch({
+                        type: DELETE_CONSTRUCTOR_BUN
+                    });
+                    dispatch({
+                        type: RESET_CONSTRUCTOR_ITEMS
+                    });
+                    dispatch({
+                        type: UPDATE_TOTAL_PRICE
+                    });
+                    dispatch({
+                        type: RESET_ITEMS_COUNTERS
+                    });
+                } else {
+                    dispatch({
+                        type: GET_ORDER_ERROR
+                    });
+                    alert(data.message);
+                }
             })
             .catch(e => {
                 dispatch({
