@@ -8,7 +8,11 @@ import {
     RESET_PASSWORD_ERROR,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    REGISTER_ERROR
+    REGISTER_ERROR,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_ERROR,
+    LOGOUT_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
@@ -87,13 +91,40 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 registerFailed: false,
-                registerRequest: false
+                registerRequest: false,
+                isAuthenticated: true,
+                user: action.user
             }
         case REGISTER_ERROR:
             return {
                 ...state,
                 registerFailed: true,
                 registerRequest: false
+            }
+        case LOGIN_REQUEST:
+            return {
+                ...state,
+                loginRequest: true
+            }
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                loginFailed: false,
+                loginRequest: false,
+                isAuthenticated: true,
+                user: action.user
+            }
+        case LOGIN_ERROR:
+            return {
+                ...state,
+                loginFailed: true,
+                loginRequest: false
+            }
+        case LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {}
             }
         default:
             return state

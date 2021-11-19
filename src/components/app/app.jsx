@@ -5,6 +5,8 @@ import { CLOSE_ORDER_MODAL } from '../../services/actions';
 import Modal from '../modal/modal';
 import IngredientModal from '../ingredient-details/ingredient-modal';
 import OrderDetails from '../order-details/order-details';
+import ProtectedRoute from '../protected-route';
+import NonAuthRoute from '../non-auth-route';
 import { 
     Layout,
     LoginPage, 
@@ -40,14 +42,18 @@ function App() {
                 <Routes location={ingredientModalShow || location}>
                     <Route path="/" element={<Layout />}>
                         <Route exact path="/" element={<MainPage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                        <Route path="/profile" element={<ProfileLayout />}>
-                            <Route path="/profile" exact element={<ProfilePage />} />
-                            <Route path="/profile/orders" exact element={<ProfileOrdersPage />} />
+                        <Route element={<NonAuthRoute />}>
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                            <Route path="/reset-password" element={<ResetPasswordPage />} />
                         </Route>
-                        <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/profile" element={<ProfileLayout />}>
+                                <Route path="/profile" exact element={<ProfilePage />} />
+                                <Route path="/profile/orders" exact element={<ProfileOrdersPage />} />
+                            </Route>
+                        </Route>
                         <Route path="/ingredients/:id" element={<IngredientsPage />} />
                         <Route path="*" element={<Page404 />} />
                     </Route>

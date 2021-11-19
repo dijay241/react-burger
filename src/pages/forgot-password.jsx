@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import {forgotPassword} from '../services/actions/auth'
 
 const ForgotPasswordPage = () => {

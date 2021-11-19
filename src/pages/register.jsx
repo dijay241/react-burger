@@ -25,7 +25,7 @@ const RegisterPage = () => {
     return (
         <section className='form-container'>
             <h1 className='text text_type_main-medium pb-6'>Регистрация</h1>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className='pb-6'>
                     <Input
                         type={'text'}
@@ -52,7 +52,7 @@ const RegisterPage = () => {
                     />
                 </div>
                 <div className='pb-20'>
-                    <Button type="primary" size="medium" onClick={onSubmit}>Зарегистрироваться</Button>
+                    <Button type="primary" size="medium">Зарегистрироваться</Button>
                 </div>
             </form>
             <p>Уже зарегистрированы? <Link to="/login">Войти</Link></p>

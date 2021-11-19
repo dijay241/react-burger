@@ -1,18 +1,30 @@
-import React from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import React, {useCallback} from 'react';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import style from './profile-menu.module.css';
+import {logOut, registerUser} from '../../services/actions/auth';
+import {useDispatch} from "react-redux";
 
 const ProfileMenu = () => {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const location = useLocation();
     const path = location.pathname;
+
+    const onLogOut = useCallback(
+        (e) => {
+            e.preventDefault();
+            dispatch(logOut());
+            navigate('/', {replace: true, state: null});
+        },
+        [dispatch]
+    );
 
     return (
         <>
             <ul className='text text_type_main-medium inline-list'>
                 <li><Link to='/profile' className={`${style['menu-item']} ${path === '/profile' && style['menu-item-active']}`}>Профиль</Link></li>
                 <li><Link to='/profile/orders' className={`${style['menu-item']} ${path === '/profile/orders' && style['menu-item-active']}`}>История заказов</Link></li>
-                <li><Link to='/' className={style['menu-item']}>Выход</Link></li>
+                <li><a href='/' className={style['menu-item']} onClick={onLogOut}>Выход</a></li>
             </ul>
             <p className={`${style.note} mt-20 text text_type_main-default text_color_inactive`}>
             {
