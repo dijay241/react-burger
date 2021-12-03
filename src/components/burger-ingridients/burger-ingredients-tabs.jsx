@@ -3,12 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import { SET_CURRENT_TAB } from '../../services/actions';
 
-const BurgerIngredientsTabs = React.forwardRef( ({}, ref) => {
+const BurgerIngredientsTabs = React.forwardRef( (props , ref) => {
 
     const dispatch = useDispatch();
     const {groups, itemsCurrentTab} = useSelector((state) => ({
-        groups: state.ingredients.groups,
-        itemsCurrentTab: state.ingredients.currentTab
+        groups: state?.ingredients.groups,
+        itemsCurrentTab: state?.ingredients.currentTab
     }));
 
     const handleTabClick = (name) => {

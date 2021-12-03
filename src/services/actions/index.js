@@ -1,3 +1,6 @@
+import {GET_INGREDIENTS_API_URL, GET_ORDER_API_URL, checkResponse} from '../api';
+import {getCookie} from '../utils';
+
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_FAILED';
@@ -8,9 +11,6 @@ export const GET_ORDER_ERROR = 'GET_ORDER_FAILED';
 export const SHOW_ORDER_MODAL = 'SHOW_ORDER_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 export const UPDATE_TOTAL_PRICE = 'UPDATE_TOTAL_PRICE';
-
-export const SHOW_CURRENT_ITEM_MODAL = 'SHOW_CURRENT_ITEM_MODAL';
-export const CLOSE_CURRENT_ITEM_MODAL = 'CLOSE_CURRENT_ITEM_MODAL';
 
 export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
 
@@ -29,18 +29,6 @@ export const RESET_ITEMS_COUNTERS = 'RESET_ITEMS_COUNTERS';
 
 export const UPDATE_ORDER_NUMBER = 'UPDATE_ORDER_NUMBER';
 
-const API_URL = 'https://norma.nomoreparties.space/api';
-const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
-const GET_ORDER_API_URL = API_URL + '/orders';
-
-
-function checkResponse(res) {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(res.status);
-}
-
 export function getOrderNumber() {
     return function(dispatch, state) {
         dispatch({
@@ -57,32 +45,45 @@ export function getOrderNumber() {
 
         fetch(GET_ORDER_API_URL, {
             method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: getCookie('accessToken')
             },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
             body: JSON.stringify(data),
         })
-            .then(checkResponse)
-            .then(res => {
-                dispatch({
-                    type: GET_ORDER_SUCCESS,
-                    number: res.order.number
-                });
-                dispatch({
-                    type: SHOW_ORDER_MODAL
-                });
-                dispatch({
-                    type: DELETE_CONSTRUCTOR_BUN
-                });
-                dispatch({
-                    type: RESET_CONSTRUCTOR_ITEMS
-                });
-                dispatch({
-                    type: UPDATE_TOTAL_PRICE
-                });
-                dispatch({
-                    type: RESET_ITEMS_COUNTERS
-                });
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        number: data.order.number
+                    });
+                    dispatch({
+                        type: SHOW_ORDER_MODAL
+                    });
+                    dispatch({
+                        type: DELETE_CONSTRUCTOR_BUN
+                    });
+                    dispatch({
+                        type: RESET_CONSTRUCTOR_ITEMS
+                    });
+                    dispatch({
+                        type: UPDATE_TOTAL_PRICE
+                    });
+                    dispatch({
+                        type: RESET_ITEMS_COUNTERS
+                    });
+                } else {
+                    dispatch({
+                        type: GET_ORDER_ERROR
+                    });
+                    alert(data.message);
+                }
             })
             .catch(e => {
                 dispatch({

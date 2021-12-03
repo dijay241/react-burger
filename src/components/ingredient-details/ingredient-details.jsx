@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {useParams} from 'react-router-dom';
+import {getIngredients} from '../../services/actions';
 
 const EnergyItem = ({ name, value }) => {
     return (
@@ -19,48 +21,49 @@ EnergyItem.propTypes = {
 
 const IngredientDetails = () => {
 
-    const {id} = useSelector((state) => ({
-        id: state.currentIngredient.id
-    }));
+    const dispatch = useDispatch();
+    const { id } = useParams();
 
     const {items} = useSelector((state) => ({
         items: state.ingredients.items
     }));
 
+    useEffect(() => {
+        !items.length && dispatch(getIngredients());
+    }, [dispatch, items.length]);
+
     const [currentItem] = items ? items.filter((item) => item._id === id) : null;
     const energy = [
             {
                 name: 'Калории, ккал',
-                value: currentItem.calories
+                value: currentItem?.calories
             },
             {
                 name: 'Белки, г',
-                value: currentItem.proteins
+                value: currentItem?.proteins
             },
             {
                 name: 'Жиры, г',
-                value: currentItem.fat
+                value: currentItem?.fat
             },
             {
                 name: 'Углеводы, г',
-                value: currentItem.carbohydrates
+                value: currentItem?.carbohydrates
             }
         ];
 
     return (
         <>
             <div className={`${style.image} mb-4`}>
-                <img src={currentItem.image_large} alt='' />
+                <img src={currentItem?.image_large} alt='' />
             </div>
             <div className={`${style.name} mb-8 text text_type_main-medium`}>
-                {currentItem.name}
+                {currentItem?.name}
             </div>
             <div className={style.energy}> 
                 {
                     energy.map( (item, id) => {
-                        return (
-                            <EnergyItem key={id} name={item.name} value={item.value} />
-                        )
+                        return item.value && item.name ? <EnergyItem key={id} name={item.name} value={item.value} /> : ''
                     })
                 }
             </div>

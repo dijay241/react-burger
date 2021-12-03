@@ -3,7 +3,7 @@ import style from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import BurgerIngredientsItem from './burger-ingredients-item';
 
-const BurgerIngredientsGroup = React.forwardRef( ({name, title, ingredients, openModal}, ref) => {
+const BurgerIngredientsGroup = React.forwardRef( ({name, title, ingredients}, ref) => {
     return (
         <article ref={ref} id={name} className='pb-10'>
             <h2 className='pb-6 text text_type_main-medium'>{title}</h2>
@@ -22,7 +22,6 @@ const BurgerIngredientsGroup = React.forwardRef( ({name, title, ingredients, ope
                             fat={item.fat}
                             proteins={item.proteins}
                             counter={item.counter}
-                            openModal={openModal}
                         />
                     }
                 )}
@@ -34,8 +33,7 @@ const BurgerIngredientsGroup = React.forwardRef( ({name, title, ingredients, ope
 BurgerIngredientsGroup.propTypes = {
     title: PropTypes.string.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-    name: PropTypes.string.isRequired,
-    openModal: PropTypes.func.isRequired
+    name: PropTypes.string.isRequired
 }
 
 export default BurgerIngredientsGroup;

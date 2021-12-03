@@ -1,93 +1,90 @@
-import React, {useEffect, useCallback} from 'react';
-import style from './app.module.css';
+import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
-import {
-    CLOSE_CURRENT_ITEM_MODAL,
-    CLOSE_ORDER_MODAL,
-    getIngredients,
-    getOrderNumber,
-    SHOW_CURRENT_ITEM_MODAL
-} from '../../services/actions';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingridients/burger-ingredients'; 
-import BurgerConstructor from '../burger-constructor/burger-constructor';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { CLOSE_ORDER_MODAL } from '../../services/actions';
+import { getUser } from '../../services/actions/auth';
 import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import IngredientModal from '../ingredient-details/ingredient-modal';
 import OrderDetails from '../order-details/order-details';
+import ProtectedRoute from '../protected-route';
+import NonAuthRoute from '../non-auth-route';
+import { 
+    Layout,
+    LoginPage, 
+    MainPage, 
+    IngredientsPage, 
+    ForgotPasswordPage, 
+    ProfilePage, 
+    ProfileLayout,
+    ProfileOrdersPage,
+    RegisterPage, 
+    ResetPasswordPage, 
+    Page404 
+} from '../../pages';
+import {getCookie} from '../../services/utils';
 
 function App() {
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const ingredientModalShow = location.state?.ingredientModalShow;
 
-    const {items, constructorItems, constructorBun, orderModalShow, ingredientModalShow} = useSelector((state) => ({
-        items: state.ingredients.items,
-        orderModalShow: state.order.modalShow,
-        ingredientModalShow: state.currentIngredient.modalShow,
-        constructorItems: state.ingredients.constructorItems,
-        constructorBun: state.ingredients.constructorBun
+    const {orderModalShow, isAuthenticated, user} = useSelector((state) => ({
+        orderModalShow: state?.order.modalShow,
+        isAuthenticated: state?.auth.isAuthenticated,
+        user: state?.auth.user
     }));
 
     function closeModal() {
         dispatch({
             type: CLOSE_ORDER_MODAL
         });
-        dispatch({
-            type: CLOSE_CURRENT_ITEM_MODAL
-        });
     }
-
-    function openIngredientModal(id) {
-        dispatch({
-            type: SHOW_CURRENT_ITEM_MODAL,
-            id
-        });
-    }
-
-    const openOrderModal = useCallback(
-        () => {
-            constructorItems.length && Object.keys(constructorBun).length ?
-                dispatch(getOrderNumber())
-                :
-                alert('Бургер не получится сделать без булки и ингридиентов.');
-        },
-        [dispatch, constructorItems, constructorBun]
-    );
 
     useEffect(() => {
-        !items.length && dispatch(getIngredients());
-    }, [dispatch, items.length]);
+        if(getCookie('accessToken') && (!isAuthenticated || !Boolean(user))) {
+            dispatch(getUser());
+        }
+    }, [dispatch, isAuthenticated, user]);
 
     return (
-        <div className={style.app}>
-            <AppHeader/>
-            <main className={style.main}>
-                <DndProvider backend={HTML5Backend}>
-                    <section className={style.column}>
-                        <BurgerIngredients openModal={openIngredientModal} />
-                    </section>
-                    <section className={`${style.column} pt-25`}>
-                        <BurgerConstructor openModal={openOrderModal} />
-                    </section>
-                </DndProvider>
-            </main>
-            {
-                ingredientModalShow && (
-                    <Modal header='Детали ингредиента' closeModal={closeModal}>
-                        <IngredientDetails />
-                    </Modal>
-                )
-            }
-            {
-                orderModalShow && (
-                    <Modal header='' closeModal={closeModal}>
-                        <OrderDetails />
-                    </Modal>
-                )
-            }
-            
-        </div>
+            <>
+                <Routes location={ingredientModalShow || location}>
+                    <Route path="/" element={<Layout />}>
+                        <Route exact path="/" element={<MainPage />} />
+                        <Route element={<NonAuthRoute />}>
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                            <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        </Route>
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/profile" element={<ProfileLayout />}>
+                                <Route path="/profile" exact element={<ProfilePage />} />
+                                <Route path="/profile/orders" exact element={<ProfileOrdersPage />} />
+                            </Route>
+                        </Route>
+                        <Route path="/ingredients/:id" element={<IngredientsPage />} />
+                        <Route path="*" element={<Page404 />} />
+                    </Route>
+                </Routes>
+
+                {
+                    ingredientModalShow && (
+                        <Routes>
+                            <Route exact path="/ingredients/:id" element={<IngredientModal />} />
+                        </Routes>
+                    )
+                }
+
+                {
+                    orderModalShow && (
+                        <Modal header='' closeModal={closeModal}>
+                            <OrderDetails />
+                        </Modal>
+                    )
+                }
+             </>      
     )
 }
 

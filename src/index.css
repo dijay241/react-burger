@@ -2,6 +2,15 @@ body {
     font: 1em/1.5em 'Jet Brains Mono', sans-serif;
 }
 
+a {
+    color: var(--colors-interface-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--text-inactive-color);
+}
+
 svg {
     vertical-align: middle;
 }
@@ -24,4 +33,27 @@ svg {
     bottom: 0;
     left: 0; 
     overflow-y: scroll;
+}
+
+.form-container {
+    text-align: center;
+    flex-grow: 1;
+    max-width: calc(120 * var(--offset-base-size));
+    align-self: center;
+}
+
+.form-container .input__container {
+    width: 100%;
+}
+
+.form-container .input__container .input {
+    width: 100%;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.justify-self-center {
+    justify-self: center;
 }
