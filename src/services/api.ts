@@ -11,7 +11,7 @@ export const LOGOUT_API_URL = API_URL + '/auth/logout';
 export const REFRESH_API_URL = API_URL + '/auth/token';
 export const USER_API_URL = API_URL + '/auth/user';
 
-export function checkResponse(res) {
+export function checkResponse(res:any) {
     if (res.ok) {
         return res.json();
     }
