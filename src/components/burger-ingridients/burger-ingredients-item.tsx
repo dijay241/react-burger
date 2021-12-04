@@ -1,12 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import { useDrag } from 'react-dnd';
 import style from "./burger-ingredients.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import {TBurgerIngredientsItem} from "../../../declarations/library-name";
 
-
-function BurgerIngredientsItem({ id, type, image, price, counter, name }) {
+const BurgerIngredientsItem:FC<TBurgerIngredientsItem> = ({ id, type, image, price, counter, name }) => {
 
     const [, refIngredient] = useDrag({
         type: 'ingredient',
@@ -38,15 +37,6 @@ function BurgerIngredientsItem({ id, type, image, price, counter, name }) {
             </Link>
         </article>
     )
-}
-
-BurgerIngredientsItem.propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    counter: PropTypes.any.isRequired,
-    name: PropTypes.string.isRequired
 }
 
 export default BurgerIngredientsItem

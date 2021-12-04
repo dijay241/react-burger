@@ -1,16 +1,17 @@
-import React, {useCallback} from 'react';
+import React, {FC, useCallback} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import style from './profile-menu.module.css';
 import {logOut} from '../../services/actions/auth';
 import {useDispatch} from "react-redux";
+import {TCallback} from "../../../declarations/library-name";
 
-const ProfileMenu = () => {
+const ProfileMenu:FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const path = location.pathname;
 
-    const onLogOut = useCallback(
+    const onLogOut = useCallback<TCallback>(
         (e) => {
             e.preventDefault();
             dispatch(logOut());

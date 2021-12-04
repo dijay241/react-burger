@@ -1,16 +1,17 @@
-import React, {useCallback, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from "react-router-dom";
 import {resetPassword} from "../services/actions/auth";
 import {useDispatch} from "react-redux";
+import {TSubmitCallback} from "../../declarations/library-name";
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage:FC = () => {
 
     const dispatch = useDispatch();
-    const [codeValue, setCodeValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
+    const [codeValue, setCodeValue] = useState<string>('');
+    const [passwordValue, setPasswordValue] = useState<string>('');
 
-    const onSubmit = useCallback(
+    const onSubmit = useCallback<TSubmitCallback>(
         (e) => {
             e.preventDefault();
             codeValue && passwordValue ?

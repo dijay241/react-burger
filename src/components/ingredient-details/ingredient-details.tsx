@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, FC} from 'react';
 import style from './ingredient-details.module.css';
-import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {getIngredients} from '../../services/actions';
+import {TEnergyItem, TIngredients, TStates} from "../../../declarations/library-name";
 
-const EnergyItem = ({ name, value }) => {
+const EnergyItem:FC<TEnergyItem> = ({ name, value }) => {
     return (
         <div className={style['energy-item']}>
             <p className='text text_type_main-default text_color_inactive mb-2'>{name}</p>
@@ -14,17 +14,12 @@ const EnergyItem = ({ name, value }) => {
     )
 }
 
-EnergyItem.propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired
-}
-
-const IngredientDetails = () => {
+const IngredientDetails:FC = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const {items} = useSelector((state) => ({
+    const {items} = useSelector((state:TStates) => ({
         items: state.ingredients.items
     }));
 
@@ -32,8 +27,8 @@ const IngredientDetails = () => {
         !items.length && dispatch(getIngredients());
     }, [dispatch, items.length]);
 
-    const [currentItem] = items ? items.filter((item) => item._id === id) : null;
-    const energy = [
+    const [currentItem] = items ? items.filter((item:TIngredients) => item._id === id) : null;
+    const energy:Array<TEnergyItem> = [
             {
                 name: 'Калории, ккал',
                 value: currentItem?.calories
@@ -62,7 +57,7 @@ const IngredientDetails = () => {
             </div>
             <div className={style.energy}> 
                 {
-                    energy.map( (item, id) => {
+                    energy.map( (item:TEnergyItem, id:number) => {
                         return item.value && item.name ? <EnergyItem key={id} name={item.name} value={item.value} /> : ''
                     })
                 }

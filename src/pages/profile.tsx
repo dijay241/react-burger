@@ -1,35 +1,35 @@
-import React, {useState,useRef,useCallback} from 'react';
+import React, {useState, useRef, useCallback, FC} from 'react';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './profile.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateUser} from '../services/actions/auth';
+import {TRefs, TStates, TSubmitCallback} from "../../declarations/library-name";
 
-const ProfilePage = () => {
+const ProfilePage:FC = () => {
     const dispatch = useDispatch();
-    const formRef = useRef(null);
-    const nameRef = useRef(null);
-    const emailRef = useRef(null);
-    const passwordRef = useRef(null);
+    const nameRef = useRef<HTMLInputElement>(null);
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
-    const {user} = useSelector((state) => ({
-        user: state?.auth.user
+    const {user} = useSelector((state:TStates) => ({
+        user: state.auth.user
     }));
 
-    const [dataChanged, setDataChanged] = useState(false);
+    const [dataChanged, setDataChanged] = useState<boolean>(false);
 
-    const [nameValue, setNameValue] = useState(user.name);
-    const [nameDisabled, setNameDisabled] = useState(true);
+    const [nameValue, setNameValue] = useState<string>(user.name);
+    const [nameDisabled, setNameDisabled] = useState<boolean>(true);
 
-    const [emailValue, setEmailValue] = useState(user.email);
-    const [emailDisabled, setEmailDisabled] = useState(true);
+    const [emailValue, setEmailValue] = useState<string>(user.email);
+    const [emailDisabled, setEmailDisabled] = useState<boolean>(true);
 
-    const [passwordValue, setPasswordValue] = useState('reset_me');
-    const [passwordDisabled, setPasswordDisabled] = useState(true);
-    const [passwordShown, setPasswordShown] = useState(false);
+    const [passwordValue, setPasswordValue] = useState<string>('reset_me');
+    const [passwordDisabled, setPasswordDisabled] = useState<boolean>(true);
+    const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
     
 
-    const onDataChange = (value, ref) => {
+    const onDataChange = (value:string, ref:TRefs):void => {
         setDataChanged(true);
         switch (ref.current.name) {
             case 'name':
@@ -46,7 +46,7 @@ const ProfilePage = () => {
         }
     }
 
-    const toggleEdit = (ref) => {
+    const toggleEdit = (ref:TRefs):void => {
 
         switch (ref.current.name) {
             case 'name':
@@ -76,7 +76,7 @@ const ProfilePage = () => {
         setTimeout(() => ref.current.focus(), 0);
     }
 
-    const onReset = (e) => {
+    const onReset = (e:React.FormEvent):void => {
         e.preventDefault();
         setDataChanged(false);
         setNameValue(user.name);
@@ -84,7 +84,7 @@ const ProfilePage = () => {
         setPasswordValue('reset_me');
     }
 
-    const onSubmit = useCallback(
+    const onSubmit = useCallback<TSubmitCallback>(
         (e) => {
             e.preventDefault();
             setDataChanged(false);
@@ -98,19 +98,19 @@ const ProfilePage = () => {
 
     return (
         <div className={`${style['form-container']} form-container`}>
-            <form ref={formRef} onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <div className='pb-6'>
                     <Input
                         type={'text'}
                         placeholder={'Имя'}
                         onChange={e => onDataChange(e.target.value, nameRef)}
                         value={nameValue}
-                        icon={nameDisabled && 'EditIcon'}
+                        icon={nameDisabled ? 'EditIcon' : undefined}
                         onIconClick={e => toggleEdit(nameRef)}
                         disabled={nameDisabled}
                         ref={nameRef}
                         name={'name'}
-                        onBlur={e => toggleEdit(nameRef)}
+                        onBlur={() => toggleEdit(nameRef)}
                     />
                 </div>
                 <div className='pb-6'>
@@ -119,12 +119,12 @@ const ProfilePage = () => {
                         placeholder={'Логин'}
                         onChange={e => onDataChange(e.target.value, emailRef)}
                         value={emailValue}
-                        icon={emailDisabled && 'EditIcon'}
+                        icon={emailDisabled ? 'EditIcon' : undefined}
                         onIconClick={e => toggleEdit(emailRef)}
                         disabled={emailDisabled}
                         ref={emailRef}
                         name={'email'}
-                        onBlur={e => toggleEdit(emailRef)}
+                        onBlur={() => toggleEdit(emailRef)}
                     />
                 </div>
                 <div className='pb-6'>
@@ -133,12 +133,12 @@ const ProfilePage = () => {
                         placeholder={'Пароль'}
                         onChange={e => onDataChange(e.target.value, passwordRef)}
                         value={passwordValue}
-                        icon={passwordDisabled && 'EditIcon'}
-                        onIconClick={e => toggleEdit(passwordRef)}
+                        icon={passwordDisabled ? 'EditIcon' : undefined}
+                        onIconClick={() => toggleEdit(passwordRef)}
                         disabled={passwordDisabled}
                         ref={passwordRef}
                         name={'password'}
-                        onBlur={e => toggleEdit(passwordRef)}
+                        onBlur={() => toggleEdit(passwordRef)}
                     />
                 </div>
                 {

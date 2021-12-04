@@ -1,5 +1,5 @@
-import React, {useEffect, useCallback} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useEffect, useCallback, FC} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { useNavigate } from "react-router-dom";
@@ -10,17 +10,18 @@ import {
     getIngredients,
     getOrderNumber
 } from '../services/actions';
+import {TStates} from "../../declarations/library-name";
 
-const MainPage = () => {
+const MainPage:FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {items, constructorItems, constructorBun, isAuthenticated} = useSelector((state) => ({
-        items: state?.ingredients.items,
-        constructorItems: state?.ingredients.constructorItems,
-        constructorBun: state?.ingredients.constructorBun,
-        isAuthenticated: state?.auth.isAuthenticated
+    const {items, constructorItems, constructorBun, isAuthenticated} = useSelector((state:TStates) => ({
+        items: state.ingredients.items,
+        constructorItems: state.ingredients.constructorItems,
+        constructorBun: state.ingredients.constructorBun,
+        isAuthenticated: state.auth.isAuthenticated
     }));
 
     const openOrderModal = useCallback(

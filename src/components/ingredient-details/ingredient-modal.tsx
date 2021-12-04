@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import IngredientDetails from './ingredient-details';
 import Modal from '../modal/modal';
 import { useNavigate } from 'react-router-dom';
 
-const IngredientModal = () => {
+const IngredientModal:FC = () => {
 
     const navigate = useNavigate();
 
-    function closeModal() {
+    const closeModal = ():void => {
         navigate(-1);
     }
 

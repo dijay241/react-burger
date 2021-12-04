@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from './order-details.module.css';
 import checkmark from '../../images/order-icon.png';
 import {useSelector} from "react-redux";
+import {TStates} from "../../../declarations/library-name";
 
-const OrderDetails = () => {
+const OrderDetails:FC = () => {
 
-    const {orderNumber, orderRequest} = useSelector((state) => ({
+    const {orderNumber, orderRequest} = useSelector((state:TStates) => ({
         orderNumber: state.order.number,
         orderRequest: state.order.request
     }));

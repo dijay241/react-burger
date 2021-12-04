@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import style from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+const AppHeader:FC = () => {
     const location = useLocation();
     const path = location.pathname;
 

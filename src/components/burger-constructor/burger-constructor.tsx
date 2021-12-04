@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import style from './burger-constructor.module.css';
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector, useDispatch} from "react-redux";
@@ -12,17 +11,18 @@ import {
 } from "../../services/actions";
 import BurgerBun from './burger-bun';
 import BurgerItem from './burger-item';
+import {TBurgerConstructor, TMove, TStates} from "../../../declarations/library-name";
 
-const BurgerConstructor = ({ openModal }) => {
+const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
 
     const dispatch = useDispatch();
 
-    const {items, totalPrice} = useSelector((state) => ({
+    const {items, totalPrice} = useSelector((state:TStates) => ({
         items: state.ingredients.constructorItems,
         totalPrice: state.ingredients.totalPrice
     }));
 
-    const moveIngredient = (item) => {
+    const moveIngredient:TMove = (item) => {
         dispatch({
             type: ADD_CONSTRUCTOR_ITEM,
             id: item.id
@@ -38,16 +38,16 @@ const BurgerConstructor = ({ openModal }) => {
 
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(id) {
-            moveIngredient(id);
+        drop(item:{id:string}) {
+            moveIngredient(item);
         },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
-            canDrop: monitor.canDrop(),
-        }),
+            canDrop: monitor.canDrop()
+        })
     });
 
-    const dragIngredient = (dragIndex, hoverIndex) => {
+    const dragIngredient = (dragIndex:number, hoverIndex:number):void => {
         const draggingItem = items[dragIndex];
         const reorderedItems = [...items];
         reorderedItems.splice(dragIndex, 1);
@@ -61,14 +61,14 @@ const BurgerConstructor = ({ openModal }) => {
     return (
         <>
             <section className='pb-4 ml-4 mr-4 pl-8'>
-                <BurgerBun type='top' moveIngredient={moveIngredient} />
+                <BurgerBun type='top' />
             </section>
             <section className={`${style.ingredients} scroll-container`}>
                 <div className='scroll-inner custom-scroll'>
                     <div ref={dropTarget} className={style.content}>
                     {
                         items.length ?
-                            items.map((item, index) => {
+                            items.map((item:any, index:number) => {
                                 return item.type !== 'bun' && (
                                     <BurgerItem
                                         key={index}
@@ -88,7 +88,7 @@ const BurgerConstructor = ({ openModal }) => {
                 </div>
             </section>
             <section className='pt-4 ml-4 mr-4 pl-8'>
-                <BurgerBun type='bottom' moveIngredient={moveIngredient} />
+                <BurgerBun type='bottom' />
             </section>
             <footer className={`${style.footer} pt-10 pb-10 mr-4 ml-4`}>
                 <div className={style.totalPrice}>
@@ -103,10 +103,6 @@ const BurgerConstructor = ({ openModal }) => {
             </footer>
         </>
     )
-}
-
-BurgerConstructor.propTypes = {
-    openModal: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

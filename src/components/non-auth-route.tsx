@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import {useSelector} from "react-redux";
+import {TStates} from "../../declarations/library-name";
 
-function NonAuthRoute() {
+const NonAuthRoute:FC = () => {
     const location = useLocation();
     const path = location.state?.from.pathname ? location.state?.from.pathname : '/';
 
-    const {isAuthenticated, user} = useSelector((state) => ({
+    const {isAuthenticated, user} = useSelector((state:TStates) => ({
         isAuthenticated: state?.auth.isAuthenticated,
         user: state?.auth.user
     }));

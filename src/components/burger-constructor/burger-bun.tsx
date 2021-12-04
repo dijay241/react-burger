@@ -1,18 +1,18 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, {FC} from "react";
 import {useDrop} from 'react-dnd';
 import {useDispatch, useSelector} from "react-redux";
 import style from './burger-constructor.module.css';
 import {ADD_CONSTRUCTOR_BUN, INCREASE_BUN_COUNTER, UPDATE_TOTAL_PRICE} from "../../services/actions";
-import PropTypes from "prop-types";
+import {TBurgerBun, TMove, TStates} from "../../../declarations/library-name";
 
-const BurgerBun = ({type}) => {
+const BurgerBun:FC<TBurgerBun> = ({type}) => {
 
     const dispatch = useDispatch();
-    const bun = useSelector((state) => state.ingredients.constructorBun);
+    const bun = useSelector((state:TStates) => state.ingredients.constructorBun);
     const isBunAdded = Object.keys(bun).length;
 
-    const moveBun = (item) => {
+    const moveBun:TMove = (item) => {
         dispatch({
             type: ADD_CONSTRUCTOR_BUN,
             id: item.id
@@ -28,10 +28,10 @@ const BurgerBun = ({type}) => {
 
     const [, dropTarget] = useDrop({
         accept: 'bun',
-        drop(id) {
-            moveBun(id);
+        drop(item:{id:string}) {
+            moveBun(item);
         },
-        collect: (monitor) => ({
+        collect: (monitor:any) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
@@ -53,10 +53,6 @@ const BurgerBun = ({type}) => {
             }
         </div>
     )
-}
-
-BurgerBun.propTypes = {
-    type: PropTypes.string.isRequired
 }
 
 export default BurgerBun;

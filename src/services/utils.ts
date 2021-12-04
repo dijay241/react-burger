@@ -1,15 +1,15 @@
-export function getCookie(name:string) {
+export function getCookie(name:string):string {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)') // eslint-disable-line
     );
-    return matches ? decodeURIComponent(matches[1]) : undefined;
+    return matches ? decodeURIComponent(matches[1]) : '';
 }
 
 interface ICookieProps { 
     [name: string]: any;
 }
 
-export function setCookie(name:string, value:string|number|boolean|null, props:ICookieProps = {}) {
+export function setCookie(name:string, value:string|number|boolean|null, props:ICookieProps = {}):void {
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
         const d = new Date();
@@ -31,6 +31,6 @@ export function setCookie(name:string, value:string|number|boolean|null, props:I
     document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name:string) {
+export function deleteCookie(name:string):void {
     setCookie(name, null, { expires: -1 });
 }

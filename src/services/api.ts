@@ -1,3 +1,5 @@
+import {TObjectAny} from "../../declarations/library-name";
+
 const API_URL = 'https://norma.nomoreparties.space/api';
 
 export const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
@@ -11,9 +13,9 @@ export const LOGOUT_API_URL = API_URL + '/auth/logout';
 export const REFRESH_API_URL = API_URL + '/auth/token';
 export const USER_API_URL = API_URL + '/auth/user';
 
-export function checkResponse(res:any) {
+export function checkResponse<T>(res:TObjectAny):Promise<T> {
     if (res.ok) {
-        return res.json();
+        return res.json() as Promise<T>;
     }
     return Promise.reject(res.status);
 }

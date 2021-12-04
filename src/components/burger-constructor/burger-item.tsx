@@ -1,17 +1,17 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useRef} from "react";
+import React, {useRef,FC} from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import {useDispatch} from "react-redux";
 import style from './burger-constructor.module.css';
 import {DECREASE_ITEM_COUNTER, DELETE_CONSTRUCTOR_ITEM, UPDATE_TOTAL_PRICE} from "../../services/actions";
-import PropTypes from "prop-types";
+import {TBurgerItem} from "../../../declarations/library-name";
 
-const BurgerItem = ({index, id, name, price, image, dragItem}) => {
+const BurgerItem:FC<TBurgerItem> = ({index, id, name, price, image, dragItem}) => {
 
     const dispatch = useDispatch();
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-    const deleteItem = () => {
+    const deleteItem = ():void => {
         dispatch({
             type: DELETE_CONSTRUCTOR_ITEM,
             index
@@ -27,16 +27,18 @@ const BurgerItem = ({index, id, name, price, image, dragItem}) => {
 
     const [, drop] = useDrop({
         accept: 'item',
-        collect(monitor) {
+        collect(monitor:any) {
             return {
                 handlerId: monitor.getHandlerId(),
             };
         },
-        hover: (item, monitor) => {
+        hover: (item:{index:number}, monitor:any) => {
             const dragIndex = item.index,
                   hoverIndex = index;
 
             if (dragIndex === hoverIndex) return;
+
+            if (!ref.current) return;
 
             const hoverBoundingRect = ref.current.getBoundingClientRect(),
                   hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2,
@@ -53,7 +55,7 @@ const BurgerItem = ({index, id, name, price, image, dragItem}) => {
 
     const [, drag] = useDrag({
         type: 'item',
-        item: () => {
+        item: ():{id:string,index:number} => {
             return { id, index };
         }
     });
@@ -70,15 +72,6 @@ const BurgerItem = ({index, id, name, price, image, dragItem}) => {
             />
         </div>
     )
-}
-
-BurgerItem.propTypes = {
-    index: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    dragItem: PropTypes.func.isRequired
 }
 
 export default BurgerItem;

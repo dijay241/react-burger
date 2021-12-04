@@ -1,36 +1,37 @@
-import React, { useMemo, useRef } from 'react';
+import React, {FC, useMemo, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import BurgerIngredientsTabs from './burger-ingredients-tabs';
 import BurgerIngredientsGroup from './burger-ingredients-group';
 import {SET_CURRENT_TAB} from '../../services/actions'
+import {TBurgerIngredientsGroup, TIngredients, TStates} from "../../../declarations/library-name";
 
-const BurgerIngredients = () => {
+const BurgerIngredients:FC = () => {
 
     const dispatch = useDispatch();
-    const tabsRef = useRef(null);
-    const bunsRef = useRef(null);
-    const saucesRef = useRef(null);
-    const mainsRef = useRef(null);
+    const tabsRef = useRef<HTMLDivElement>(null);
+    const bunsRef = useRef<HTMLDivElement>(null);
+    const saucesRef = useRef<HTMLDivElement>(null);
+    const mainsRef = useRef<HTMLDivElement>(null);
 
-    const {groups, items, itemsRequest} = useSelector((state) => ({
+    const {groups, items, itemsRequest} = useSelector((state:TStates) => ({
         groups: state?.ingredients.groups,
         items: state?.ingredients.items,
         itemsRequest: state?.ingredients.request
     }));
 
-    const setCurrentTab = (name) => {
+    const setCurrentTab = (name:string):void => {
         dispatch({
             type: SET_CURRENT_TAB,
             name
         });
     }
 
-    const findCurrentTab = () => {
+    const findCurrentTab = ():void => {
 
-        const tabsTop = tabsRef.current.getBoundingClientRect().top;
-        const bunsDistance = Math.abs(tabsTop - bunsRef.current.getBoundingClientRect().top);
-        const saucesDistance = Math.abs(tabsTop - saucesRef.current.getBoundingClientRect().top);
-        const mainsDistance = Math.abs(tabsTop - mainsRef.current.getBoundingClientRect().top);
+        const tabsTop = tabsRef.current ? tabsRef.current.getBoundingClientRect().top : 0;
+        const bunsDistance = Math.abs(tabsTop - (bunsRef.current ? bunsRef.current.getBoundingClientRect().top : 0));
+        const saucesDistance = Math.abs(tabsTop - (saucesRef.current ? saucesRef.current.getBoundingClientRect().top : 0));
+        const mainsDistance = Math.abs(tabsTop - (mainsRef.current ? mainsRef.current.getBoundingClientRect().top : 0));
 
         const maxValue = Math.min(bunsDistance, saucesDistance, mainsDistance);
 
@@ -45,20 +46,20 @@ const BurgerIngredients = () => {
         return itemsRequest ?
             ( <div>Loading...</div>)
             :
-            groups.map((group, id) => {
+            groups.map((group:TBurgerIngredientsGroup, id:number) => {
                     return (
                         <BurgerIngredientsGroup
                             key = {id}
-                            id = {id}
                             ref = {
                                 group.name === 'bun' ? bunsRef :
                                     group.name === 'sauce' ? saucesRef :
-                                        group.name === 'main' && mainsRef
+                                        group.name === 'main' ? mainsRef :
+                                            undefined
                             }
                             title = {group.title}
                             name = {group.name}
                             ingredients = {
-                                items && items.filter((item) => item.type === group.name)
+                                items && items.filter((item:TIngredients) => item.type === group.name)
                             }
                         />
                     )

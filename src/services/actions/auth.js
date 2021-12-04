@@ -43,7 +43,7 @@ export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
 
-export function forgotPassword(email:string) {
+export function forgotPassword(email) {
     return function(dispatch) {
         if(email) {
 
@@ -85,7 +85,7 @@ export function forgotPassword(email:string) {
     };
 }
 
-export function resetPassword(password:string, code:string) {
+export function resetPassword(password, code) {
     return function(dispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
@@ -124,7 +124,7 @@ export function resetPassword(password:string, code:string) {
     };
 }
 
-export function registerUser(name:string, email:string, password:string) {
+export function registerUser(name, email, password) {
     return function(dispatch) {
         dispatch({
             type: REGISTER_REQUEST
@@ -173,7 +173,7 @@ export function registerUser(name:string, email:string, password:string) {
     };
 }
 
-export function logIn(email:string, password:string) {
+export function logIn(email, password) {
     return function(dispatch) {
         dispatch({
             type: LOGIN_REQUEST
@@ -356,7 +356,7 @@ export function getUser() {
     };
 }
 
-export function updateUser(name:string, email:string, password:string) {
+export function updateUser(name, email, password) {
     return function(dispatch) {
         dispatch({
             type: UPDATE_USER_REQUEST

@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import {useSelector} from "react-redux";
+import {TStates} from "../../declarations/library-name";
 
-function ProtectedRoute() {
+const ProtectedRoute:FC = () => {
     const location = useLocation();
-    const {isAuthenticated, user} = useSelector((state) => ({
+    const {isAuthenticated, user} = useSelector((state:TStates) => ({
         isAuthenticated: state?.auth.isAuthenticated,
         user: state?.auth.user
     }));
 
     if (!isAuthenticated || !Boolean(user)) {
-        console.log('ok');
         return <Navigate to="/login" replace={true} state={{ from: location }} />;
     }
 
