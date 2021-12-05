@@ -42,7 +42,7 @@ declare type TBurgerConstructor = {
 }
 
 declare type TBurgerBun = {
-    type: "top" | "bottom" | undefined;
+    type?: "top" | "bottom";
 }
 
 declare type TModal = {
