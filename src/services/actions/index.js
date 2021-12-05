@@ -101,7 +101,7 @@ export function getIngredients() {
         });
         fetch(GET_INGREDIENTS_API_URL)
             .then(checkResponse)
-            .then(res => {
+            .then((res) => {
                 dispatch({
                     type: GET_INGREDIENTS_SUCCESS,
                     items: res.data.map(item => ({

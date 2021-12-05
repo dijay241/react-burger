@@ -23,6 +23,7 @@ const initialState = {
 
     resetRequest: false,
     resetFailed: false,
+    isReset: false,
 
     registerRequest: false,
     registerFailed: false,
@@ -51,13 +52,15 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 forgotFailed: false,
-                forgotRequest: false
+                forgotRequest: false,
+                isReset: true
             }
         case FORGOT_PASSWORD_ERROR:
             return {
                 ...state,
                 forgotFailed: true,
-                forgotRequest: false
+                forgotRequest: false,
+                isReset: false
             }
         case RESET_PASSWORD_REQUEST:
             return {
