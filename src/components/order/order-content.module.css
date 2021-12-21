@@ -1,7 +1,12 @@
 .container {
     display: flex;
     width: 640px;
+    height: 100%;
     flex-direction: column;
+}
+
+.section {
+    flex-grow: 1;
 }
 
 .number {
@@ -16,6 +21,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.items {
+    flex-grow: 1;
+    display: flex;
 }
 
 .item {

@@ -41,12 +41,14 @@ const MainPage:FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <section className={style.column}>
-                <BurgerIngredients />
-            </section>
-            <section className={`${style.column} pt-25`}>
-                <BurgerConstructor openModal={openOrderModal} />
-            </section>
+            <div className={style.container}>
+                <section className={style.column}>
+                    <BurgerIngredients />
+                </section>
+                <section className={`${style.column} pt-25`}>
+                    <BurgerConstructor openModal={openOrderModal} />
+                </section>
+            </div>
         </DndProvider>
     )
 }

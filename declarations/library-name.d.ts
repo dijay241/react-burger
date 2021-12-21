@@ -7,6 +7,26 @@ declare type TRefs = TObjectAny;
 declare type TStates = TObjectAny;
 declare type TIngredients = TObjectAny;
 
+declare type TOrdersListItem = {
+    _id: string;
+    id: number;
+    date: string;
+    title: string;
+    status: string;
+    status_id: string;
+    images: Array<string> | undefined;
+    total: number;
+};
+
+declare type TOrderContentItem = {
+    _id: string;
+    id: number;
+    image: string;
+    name: string;
+    qty: number;
+    price: number;
+};
+
 declare type TBurgerIngredientsItem = {
     id: string | undefined;
     type: string;

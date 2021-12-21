@@ -5,6 +5,7 @@
     justify-content: center;
     gap: calc(15 * var(--offset-base-size));
     align-items: flex-start;
+    width: 100%;
 }
 
 .content {

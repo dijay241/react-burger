@@ -22,7 +22,7 @@ const LoginPage:FC = () => {
     );
 
     return (
-        <section className='form-container'>
+        <section className='form-container pt-10'>
             <h1 className='text text_type_main-medium pb-6'>Вход</h1>
             <form onSubmit={onSubmit}>
                 <div className='pb-6'>

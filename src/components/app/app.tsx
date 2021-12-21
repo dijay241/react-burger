@@ -12,6 +12,7 @@ import {
     Layout,
     LoginPage, 
     MainPage, 
+    FeedPage,
     IngredientsPage, 
     ForgotPasswordPage, 
     ProfilePage, 
@@ -19,7 +20,8 @@ import {
     ProfileOrdersPage,
     RegisterPage, 
     ResetPasswordPage, 
-    Page404 
+    Page404,
+    OrderDetailsPage
 } from '../../pages';
 import {getCookie} from '../../services/utils';
 import {TStates} from "../../../declarations/library-name";
@@ -65,8 +67,11 @@ const App:FC = () => {
                                 <Route path="/profile" element={<ProfilePage />} />
                                 <Route path="/profile/orders" element={<ProfileOrdersPage />} />
                             </Route>
-                            <Route path="/order" element={<OrderContent />} />
+                            <Route path="/profile/orders/:id" element={<OrderDetailsPage />} />
                         </Route>
+                        <Route path="/feed" element={<FeedPage />} />
+                        <Route path="/feed/:id" element={<OrderDetailsPage />} />
+                        <Route path="/order" element={<OrderContent />} />
                         <Route path="/ingredients/:id" element={<IngredientsPage />} />
                         <Route path="*" element={<Page404 />} />
                     </Route>
