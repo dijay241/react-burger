@@ -1,0 +1,75 @@
+.orderList {
+    width: 100%;
+    display: flex;
+}
+
+.orderItem {
+    background: var(--background);
+    border-radius: var(--common-border-radius-s);
+    cursor: pointer;
+}
+
+.orderItemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderItemStatusDone {
+    color: var(--colors-interface-success);
+}
+
+.orderItemImages {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.orderItemImage {
+    width: calc(var(--offset-base-size) * 12);
+    height: calc(var(--offset-base-size) * 16);
+    position: relative;
+}
+
+.orderItemImage:before {
+    content: '';
+    display: block;
+    left: 0;
+    top: 0;
+    width: calc(var(--offset-base-size) * 16);
+    height: calc(var(--offset-base-size) * 16);
+    position: absolute;
+    background: linear-gradient(135deg, rgba(128,26,178,1) 0%, rgba(76,76,255,1) 100%);
+    border-radius: 50%;
+}
+
+.orderItemImage span {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    overflow: hidden;
+    width: calc(var(--offset-base-size) * 15);
+    height: calc(var(--offset-base-size) * 15);
+    border-radius: 50%;
+    background: var(--background-alt);
+}
+
+.orderItemImage span.orderItemImagesMore {
+    text-align: center;
+    line-height: calc(var(--offset-base-size) * 15);
+    background: rgba(0,0,0,.6);
+}
+
+.orderItemImage img {
+    height: calc(var(--offset-base-size) * 14);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.orderItemFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

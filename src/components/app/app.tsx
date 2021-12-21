@@ -23,6 +23,7 @@ import {
 } from '../../pages';
 import {getCookie} from '../../services/utils';
 import {TStates} from "../../../declarations/library-name";
+import OrderContent from "../order/order-content";
 
 const App:FC = () => {
 
@@ -64,6 +65,7 @@ const App:FC = () => {
                                 <Route path="/profile" element={<ProfilePage />} />
                                 <Route path="/profile/orders" element={<ProfileOrdersPage />} />
                             </Route>
+                            <Route path="/order" element={<OrderContent />} />
                         </Route>
                         <Route path="/ingredients/:id" element={<IngredientsPage />} />
                         <Route path="*" element={<Page404 />} />

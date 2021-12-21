@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    width: 640px;
+    flex-direction: column;
+}
+
+.number {
+    text-align: center;
+}
+
+.status {
+    color: var(--colors-interface-success);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.itemImage {
+    width: calc(var(--offset-base-size) * 16);
+}
+
+.itemName {
+    flex-grow: 1;
+}

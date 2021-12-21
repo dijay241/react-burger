@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
+import OrdersList from "../components/order/orders-list";
 
 const ProfileOrdersPage:FC = () => {
     return (
-        <div className='pt-10'>Этой страницы пока нет</div>
+        <OrdersList />
     )
 }
 
