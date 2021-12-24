@@ -26,12 +26,14 @@ const Modal:FC<TModal> = ({ header, children, closeModal }) => {
     return ReactDom.createPortal(
         (
             <>
-                <div className={`${style.modal} p-10`}>
-                    <header className={style.header}>
-                        <div className={`${style['header-text']} text text_type_main-large`}>{header}</div>
-                        <div className={style.close} onClick={closeModal}><CloseIcon type="primary" /></div>
-                    </header>
-                    {children}
+                <div className={`${style['modal-container']}`}>
+                    <div className={`${style.modal} p-10`}>
+                        <header className={style.header}>
+                            <div className={`${style['header-text']} text text_type_main-large`}>{header}</div>
+                            <div className={style.close} onClick={closeModal}><CloseIcon type="primary" /></div>
+                        </header>
+                        {children}
+                    </div>
                 </div>
                 <ModalOverlay closeModal={closeModal} />
             </>

@@ -1,7 +1,7 @@
 import React, {PropsWithChildren} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import { SET_CURRENT_TAB } from '../../services/actions';
+import { SET_CURRENT_TAB } from '../../services/constants';
 import {TBurgerIngredientsGroup, TStates} from "../../../declarations/library-name";
 
 const BurgerIngredientsTabs = React.forwardRef<HTMLDivElement, PropsWithChildren<any>>( (props , ref) => {

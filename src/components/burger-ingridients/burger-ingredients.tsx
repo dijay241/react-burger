@@ -2,7 +2,7 @@ import React, {FC, useMemo, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import BurgerIngredientsTabs from './burger-ingredients-tabs';
 import BurgerIngredientsGroup from './burger-ingredients-group';
-import {SET_CURRENT_TAB} from '../../services/actions'
+import {SET_CURRENT_TAB} from '../../services/constants'
 import {TBurgerIngredientsGroup, TIngredients, TStates} from "../../../declarations/library-name";
 
 const BurgerIngredients:FC = () => {

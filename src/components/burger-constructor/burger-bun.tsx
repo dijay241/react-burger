@@ -3,7 +3,7 @@ import React, {FC} from "react";
 import {useDrop} from 'react-dnd';
 import {useDispatch, useSelector} from "react-redux";
 import style from './burger-constructor.module.css';
-import {ADD_CONSTRUCTOR_BUN, INCREASE_BUN_COUNTER, UPDATE_TOTAL_PRICE} from "../../services/actions";
+import {ADD_CONSTRUCTOR_BUN, INCREASE_BUN_COUNTER, UPDATE_TOTAL_PRICE} from "../../services/constants";
 import {TBurgerBun, TMove, TStates} from "../../../declarations/library-name";
 
 const BurgerBun:FC<TBurgerBun> = ({type}) => {

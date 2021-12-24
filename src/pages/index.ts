@@ -11,6 +11,7 @@ import ProfileLayout from './profile-layout';
 import ProfileOrdersPage from './profile-orders';
 import FeedPage from './feed';
 import OrderDetailsPage from './order-details';
+import ProfileOrderDetailsPage from './profile-order-details';
 
 export { 
     Layout, 
@@ -25,5 +26,6 @@ export {
     ProfileLayout, 
     RegisterPage, 
     ResetPasswordPage, 
-    Page404 
+    Page404,
+    ProfileOrderDetailsPage
 };

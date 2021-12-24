@@ -3,6 +3,7 @@
     width: 640px;
     height: 100%;
     flex-direction: column;
+    margin: 0 auto;
 }
 
 .section {
@@ -26,6 +27,7 @@
 .items {
     flex-grow: 1;
     display: flex;
+    min-height: 240px;
 }
 
 .item {
@@ -39,4 +41,8 @@
 
 .itemName {
     flex-grow: 1;
+}
+
+.empty {
+    text-align: center;
 }

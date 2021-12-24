@@ -15,9 +15,11 @@ import {
     RESET_BUN_COUNTER,
     RESET_CONSTRUCTOR_ITEMS,
     RESET_ITEMS_COUNTERS
-} from "../actions";
+} from "../constants";
+import {TMainActions} from '../actions';
+import {TBurgerIngredientsItem, TIngredientsState} from "../../../declarations/library-name";
 
-const initialState = {
+const initialState:TIngredientsState = {
     items: [],
     groups: [
         {
@@ -38,11 +40,11 @@ const initialState = {
     currentTab: 'bun',
     position: 0,
     constructorItems: [],
-    constructorBun: {},
+    constructorBun: {} as TBurgerIngredientsItem,
     totalPrice: 0
 }
 
-const ingredientsReducer = (state = initialState, action) => {
+const ingredientsReducer = (state = initialState, action:TMainActions):TIngredientsState => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST:
             return {
@@ -133,7 +135,7 @@ const ingredientsReducer = (state = initialState, action) => {
         case DELETE_CONSTRUCTOR_BUN: {
             return {
                 ...state,
-                constructorBun: []
+                constructorBun: {} as TBurgerIngredientsItem
             }
         }
         case RESET_BUN_COUNTER: {
@@ -148,7 +150,7 @@ const ingredientsReducer = (state = initialState, action) => {
         case UPDATE_TOTAL_PRICE: {
             return {
                 ...state,
-                totalPrice: state.constructorItems.reduce((sum,item) => sum + item.price, 0) + 2 * ~~state.constructorBun.price || 0
+                totalPrice: (state.constructorItems as Array<TBurgerIngredientsItem>).reduce((sum:number,item:TBurgerIngredientsItem) => sum + item.price, 0) + 2 * ~~state.constructorBun.price || 0
             }
         }
         case REORDER_CONSTRUCTOR_ITEMS: {

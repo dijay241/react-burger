@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, FC} from 'react';
+import React, {useCallback, FC} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import BurgerIngredients from '../components/burger-ingridients/burger-ingredients'; 
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 import style from '../components/app/app.module.css';
-import {
-    getIngredients,
-    getOrderNumber
-} from '../services/actions';
+import {getOrderNumber} from '../services/actions';
 import {TStates} from "../../declarations/library-name";
 
 const MainPage:FC = () => {
@@ -17,8 +14,7 @@ const MainPage:FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {items, constructorItems, constructorBun, isAuthenticated} = useSelector((state:TStates) => ({
-        items: state.ingredients.items,
+    const {constructorItems, constructorBun, isAuthenticated} = useSelector((state:TStates) => ({
         constructorItems: state.ingredients.constructorItems,
         constructorBun: state.ingredients.constructorBun,
         isAuthenticated: state.auth.isAuthenticated
@@ -34,10 +30,6 @@ const MainPage:FC = () => {
         },
         [dispatch, constructorItems.length, constructorBun, isAuthenticated, navigate]
     );
-
-    useEffect(() => {
-        !items.length && dispatch(getIngredients());
-    }, [dispatch, items.length]);
 
     return (
         <DndProvider backend={HTML5Backend}>

@@ -16,7 +16,7 @@
     align-items: center;
 }
 
-.orderItemStatusDone {
+.orderItemStatus.done {
     color: var(--colors-interface-success);
 }
 
@@ -73,4 +73,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.item-link {
+    color: var(--text-primary-color);
+    display: block;
+}
+
+.item-link:hover {
+    color: var(--text-primary-color);
+    opacity: 0.8;
 }

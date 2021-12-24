@@ -8,10 +8,10 @@ import {
     INCREASE_ITEM_COUNTER,
     REORDER_CONSTRUCTOR_ITEMS,
     UPDATE_TOTAL_PRICE
-} from "../../services/actions";
+} from "../../services/constants";
 import BurgerBun from './burger-bun';
 import BurgerItem from './burger-item';
-import {TBurgerConstructor, TMove, TStates} from "../../../declarations/library-name";
+import {TBurgerConstructor, TBurgerIngredientsItem, TMove, TStates} from "../../../declarations/library-name";
 
 const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
 
@@ -68,7 +68,7 @@ const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
                     <div ref={dropTarget} className={style.content}>
                     {
                         items.length ?
-                            items.map((item:any, index:number) => {
+                            items.map((item:TBurgerIngredientsItem, index:number) => {
                                 return item.type !== 'bun' && (
                                     <BurgerItem
                                         key={index}

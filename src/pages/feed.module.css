@@ -10,3 +10,7 @@
 .column.done .item {
     color: var(--colors-interface-success);
 }
+
+.columnTwice {
+    columns: 2;
+}
