@@ -6,21 +6,6 @@ declare type TCallback = (e: React.Event) => void;
 declare type TObjectAny = {[string: string]: any};
 declare type TRefs = TObjectAny;
 
-declare type TIngredients = {
-    _id: string | undefined;
-    name: string;
-    type: string;
-    proteins: number;
-    fat: number;
-    carbohydrates: number;
-    calories: number
-    price: number;
-    image: string;
-    image_mobile: string;
-    image_large: string;
-    __v?: number;
-};
-
 declare type TOrdersListItem = {
     _id: string | undefined;
     id: number;
