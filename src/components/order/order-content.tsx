@@ -3,20 +3,19 @@ import style from './order-content.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderContentItem from './order-content-item';
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {
     TBurgerIngredientsItem,
     TFeedOrder,
-    TPersonalComponent,
-    TStates
+    TPersonalComponent
 } from "../../../declarations/library-name";
 import {formatDate, getOrderIngredients} from "../../services/utils";
+import {useAppSelector} from "../../services/hooks";
 
 const OrderContent:FC<TPersonalComponent> = ({personal = false}) => {
 
     const {id} = useParams();
 
-    const {allIngredients, orders, statuses, userOrders} = useSelector((state:TStates) => ({
+    const {allIngredients, orders, statuses, userOrders} = useAppSelector(state => ({
         allIngredients: state.ingredients.items,
         orders: state?.feed.publicFeed,
         userOrders: state?.feed.userFeed,
@@ -32,9 +31,9 @@ const OrderContent:FC<TPersonalComponent> = ({personal = false}) => {
                 {
                     order ?
                         <>
-                            <div className={`${style.number} text text_type_digits-default mb-10`}>#{order?.number}</div>
+                            <div className={`${style.number} text text_type_digits-default mb-10`}>#{order.number}</div>
                             <div className='text text_type_main-medium mb-3'>{order?.name}</div>
-                            <div className={`${style.status} mb-15 text text_type_main-default`}>{statuses[order?.status]}</div>
+                            <div className={`${style.status} mb-15 text text_type_main-default`}>{statuses[order.status]}</div>
                             <div className='text text_type_main-medium mb-6'>Состав:</div>
                             <div className={`${style.items} mb-10`}>
                                 <div className='scroll-container'>

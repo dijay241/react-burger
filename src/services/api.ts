@@ -1,5 +1,4 @@
 import {TObjectAny} from "../../declarations/library-name";
-import {getCookie} from "./utils";
 
 const API_URL = 'https://norma.nomoreparties.space/api';
 export const GET_INGREDIENTS_API_URL = API_URL + '/ingredients';
@@ -22,47 +21,3 @@ export function checkResponse<T>(res:TObjectAny):Promise<T> {
     }
     return Promise.reject(res.status);
 }
-
-export const socketMiddleware = (wsUrl:string, wsActions:TObjectAny, personal:boolean = false) => {
-    return (store:TObjectAny) =>  {
-        let socket:TObjectAny | null = null;
-
-        return (next:Function) => (action:{type:string; payload:TObjectAny;}) => {
-            const { dispatch } = store;
-            const { type } = action;
-            const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
-
-           if (type === wsInit) {
-              if (personal) {
-                  let token = getCookie('accessToken').replace('Bearer ','');
-                  socket = new WebSocket(`${wsUrl}?token=${token}`);
-              } else {
-                  socket = new WebSocket(`${wsUrl}`);
-              }
-           }
-            if (socket) {
-                socket.onopen = (event:TObjectAny) => {
-                    dispatch({ type: onOpen, payload: event });
-                };
-
-                socket.onerror = (event:TObjectAny) => {
-                    dispatch({ type: onError, payload: event });
-                };
-
-                socket.onmessage = (event:TObjectAny) => {
-                    const { data } = event;
-                    const parsedData = JSON.parse(data);
-                    const { success, ...restParsedData } = parsedData;
-
-                    dispatch({ type: onMessage, payload: restParsedData });
-                };
-
-                socket.onclose = (event:TObjectAny) => {
-                    dispatch({ type: onClose, payload: event });
-                };
-            }
-
-            next(action);
-        };
-    };
-};

@@ -36,8 +36,8 @@ import {
 } from '../constants/auth';
 
 import {getCookie, setCookie, deleteCookie} from '../utils';
-import {Dispatch} from "redux";
 import {TUser} from "../../../declarations/library-name";
+import {AppDispatch, AppThunk} from "../store";
 
 export interface IForgotPasswordRequestAction {
     readonly type: typeof FORGOT_PASSWORD_REQUEST;
@@ -170,8 +170,8 @@ export type TAuthActions =
     | IUpdateUserErrorAction
     | IResetPasswordFlushAction;
 
-export function forgotPassword(email:string) {
-    return function(dispatch:Dispatch) {
+export function forgotPassword(email:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         if(email) {
 
             dispatch({
@@ -212,8 +212,8 @@ export function forgotPassword(email:string) {
     };
 }
 
-export function resetPassword(password:string, code:string) {
-    return function(dispatch:Dispatch) {
+export function resetPassword(password:string, code:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -251,8 +251,8 @@ export function resetPassword(password:string, code:string) {
     };
 }
 
-export function registerUser(name:string, email:string, password:string) {
-    return function(dispatch:Dispatch) {
+export function registerUser(name:string, email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: REGISTER_REQUEST
         });
@@ -300,8 +300,8 @@ export function registerUser(name:string, email:string, password:string) {
     };
 }
 
-export function logIn(email:string, password:string) {
-    return function(dispatch:Dispatch) {
+export function logIn(email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: LOGIN_REQUEST
         });
@@ -348,8 +348,8 @@ export function logIn(email:string, password:string) {
     };
 }
 
-export function logOut() {
-    return function(dispatch:Dispatch) {
+export function logOut():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -394,8 +394,8 @@ export function logOut() {
     };
 }
 
-export function refreshTokens() {
-    return function(dispatch:Dispatch) {
+export function refreshTokens():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: TOKEN_REQUEST
         });
@@ -441,8 +441,8 @@ export function refreshTokens() {
     };
 }
 
-export function getUser() {
-    return function(dispatch:Dispatch) {
+export function getUser():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: GET_USER_REQUEST
         });
@@ -483,8 +483,8 @@ export function getUser() {
     };
 }
 
-export function updateUser(name:string, email:string, password:string) {
-    return function(dispatch:Dispatch) {
+export function updateUser(name:string, email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });

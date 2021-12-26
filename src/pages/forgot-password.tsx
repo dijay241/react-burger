@@ -1,16 +1,16 @@
 import React, {useState, useCallback, FC} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate} from "react-router-dom";
 import {forgotPassword} from '../services/actions/auth'
-import {TStates, TSubmitCallback} from "../../declarations/library-name";
+import {TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../services/hooks";
 
 const ForgotPasswordPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [emailValue, setEmailValue] = useState<string>('');
 
-    const {isReset} = useSelector((state:TStates) => ({
+    const {isReset} = useAppSelector(state => ({
         isReset: state.auth.isReset
     }));
 

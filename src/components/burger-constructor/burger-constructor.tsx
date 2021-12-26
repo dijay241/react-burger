@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
 import style from './burger-constructor.module.css';
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector, useDispatch} from "react-redux";
 import {useDrop} from 'react-dnd';
 import {
     ADD_CONSTRUCTOR_ITEM,
@@ -11,13 +10,14 @@ import {
 } from "../../services/constants";
 import BurgerBun from './burger-bun';
 import BurgerItem from './burger-item';
-import {TBurgerConstructor, TBurgerIngredientsItem, TMove, TStates} from "../../../declarations/library-name";
+import {TBurgerConstructor, TBurgerIngredientsItem, TMove} from "../../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {items, totalPrice} = useSelector((state:TStates) => ({
+    const {items, totalPrice} = useAppSelector(state => ({
         items: state.ingredients.constructorItems,
         totalPrice: state.ingredients.totalPrice
     }));

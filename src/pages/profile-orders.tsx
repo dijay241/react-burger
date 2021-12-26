@@ -1,14 +1,13 @@
 import React, {FC, useEffect} from 'react';
 import OrdersList from "../components/order/orders-list";
 import {PRIVATE_FEED_START} from "../services/constants/feed";
-import {useDispatch, useSelector} from "react-redux";
-import {TStates} from "../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../services/hooks";
 
 const ProfileOrdersPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {orders} = useSelector((state:TStates) => ({
+    const {orders} = useAppSelector(state => ({
         orders: state?.feed.userFeed.reverse()
     }));
 

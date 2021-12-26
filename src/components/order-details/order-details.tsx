@@ -1,12 +1,11 @@
 import React, {FC} from 'react';
 import style from './order-details.module.css';
 import checkmark from '../../images/order-icon.png';
-import {useSelector} from "react-redux";
-import {TStates} from "../../../declarations/library-name";
+import {useAppSelector} from "../../services/hooks";
 
 const OrderDetails:FC = () => {
 
-    const {orderNumber, orderRequest} = useSelector((state:TStates) => ({
+    const {orderNumber, orderRequest} = useAppSelector(state => ({
         orderNumber: state.order.number,
         orderRequest: state.order.request
     }));

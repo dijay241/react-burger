@@ -1,17 +1,17 @@
 import React, {FC} from 'react';
 import style from './orders-list.module.css';
-import {useSelector} from "react-redux";
-import {TFeedOrder, TFeedOrders, TStates} from "../../../declarations/library-name";
+import {TFeedOrder, TFeedOrders} from "../../../declarations/library-name";
 import OrdersListItem from './order-list-item';
 import moment from 'moment';
 import 'moment/locale/ru';
 import {formatDate, getImagesArray, getOrderIngredients} from "../../services/utils";
+import {useAppSelector} from "../../services/hooks";
 
 const OrdersList:FC<TFeedOrders> = ({orders, status= false, personal = false }) => {
 
     moment.locale('ru');
 
-    const {ingredients, statuses} = useSelector((state:TStates) => ({
+    const {ingredients, statuses} = useAppSelector(state => ({
         ingredients: state.ingredients.items,
         statuses: state.feed.statuses
     }));

@@ -5,7 +5,7 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {Link, useLocation} from 'react-router-dom';
 import {TBurgerIngredientsItem} from "../../../declarations/library-name";
 
-const BurgerIngredientsItem:FC<TBurgerIngredientsItem> = ({ id, type, image, price, counter, name }) => {
+const BurgerIngredientsItem:FC<TBurgerIngredientsItem> = ({ id, type, image,  price, counter, name }) => {
 
     const location = useLocation();
     const [, refIngredient] = useDrag({

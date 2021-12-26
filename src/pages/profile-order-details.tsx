@@ -1,11 +1,11 @@
 import React, {FC, useEffect} from 'react';
 import OrderContent from '../components/order/order-content';
-import {useDispatch} from 'react-redux';
 import {PRIVATE_FEED_START} from "../services/constants/feed";
+import {useAppDispatch} from "../services/hooks";
 
 const ProfileOrderDetailsPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(
         () => {

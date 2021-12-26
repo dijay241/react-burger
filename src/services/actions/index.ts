@@ -23,7 +23,7 @@ import {
     REORDER_CONSTRUCTOR_ITEMS, CLOSE_ORDER_MODAL
 } from '../constants'
 import {TBurgerIngredientsItem} from "../../../declarations/library-name";
-import {Dispatch} from "redux";
+import {AppDispatch, AppThunk} from "../store";
 
 export interface IGetIngredientsRequestAction {
     readonly type: typeof GET_INGREDIENTS_REQUEST;
@@ -88,7 +88,7 @@ export interface IIncreaseItemCounterAction {
 
 export interface IDecreaseItemCounterAction {
     readonly type: typeof DECREASE_ITEM_COUNTER;
-    readonly id: string;
+    readonly id: string | undefined;
 }
 
 export interface IDeleteConstructorItemAction {
@@ -143,9 +143,7 @@ export type TMainActions =
     | IReorderConstructorItemsAction
     | ICloseOrderModalAction;
 
-export type AppDispatch = Dispatch<TMainActions>
-
-export function getOrderNumber() {
+export function getOrderNumber():AppThunk {
     return function(dispatch:AppDispatch, state:any) {
         dispatch({
             type: GET_ORDER_REQUEST
@@ -210,8 +208,8 @@ export function getOrderNumber() {
     };
 }
 
-export function getIngredients() {
-    return function(dispatch:AppDispatch) {
+export function getIngredients():AppThunk {
+    return function(dispatch) {
         dispatch({
             type: GET_INGREDIENTS_REQUEST
         });

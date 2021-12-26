@@ -1,13 +1,13 @@
 import React, {FC, useCallback, useState} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {registerUser} from "../services/actions/auth";
 import {TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch} from "../services/hooks";
 
 const RegisterPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [nameValue, setNameValue] = useState<string>('');
     const [emailValue, setEmailValue] = useState<string>('');
     const [passwordValue, setPasswordValue] = useState<string>('');

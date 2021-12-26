@@ -1,13 +1,13 @@
 import React, {PropsWithChildren} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import { SET_CURRENT_TAB } from '../../services/constants';
-import {TBurgerIngredientsGroup, TStates} from "../../../declarations/library-name";
+import {TBurgerIngredientsGroup} from "../../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const BurgerIngredientsTabs = React.forwardRef<HTMLDivElement, PropsWithChildren<any>>( (props , ref) => {
 
-    const dispatch = useDispatch();
-    const {groups, itemsCurrentTab} = useSelector((state:TStates) => ({
+    const dispatch = useAppDispatch();
+    const {groups, itemsCurrentTab} = useAppSelector(state => ({
         groups: state?.ingredients.groups,
         itemsCurrentTab: state?.ingredients.currentTab
     }));
@@ -17,6 +17,7 @@ const BurgerIngredientsTabs = React.forwardRef<HTMLDivElement, PropsWithChildren
             type: SET_CURRENT_TAB,
             name
         });
+        props.blockRefs[name].current.scrollIntoView({behavior: "smooth"});
     }
 
     return (

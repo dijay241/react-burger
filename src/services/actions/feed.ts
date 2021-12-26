@@ -11,8 +11,7 @@ import {
     PRIVATE_FEED_CLOSED,
     PRIVATE_FEED_GET_MESSAGE,
     PRIVATE_FEED_SEND_MESSAGE
-} from '../constants/feed'
-import {Dispatch} from "redux";
+} from '../constants/feed';
 
 export interface IPublicFeedStartAction {
     readonly type: typeof PUBLIC_FEED_START;
@@ -96,48 +95,4 @@ export const wsPrivateActions = {
     onClose: PRIVATE_FEED_CLOSED,
     onError: PRIVATE_FEED_ERROR,
     onMessage: PRIVATE_FEED_GET_MESSAGE
-};
-
-export type FeedDispatch = Dispatch<TFeedActions>
-
-export const publicFeedSuccess = () => {
-    return function(dispatch:FeedDispatch) {
-        dispatch({
-            type: PUBLIC_FEED_SUCCESS
-        });
-    };
-};
-
-export const publicFeedError = () => {
-    return function(dispatch:FeedDispatch) {
-        dispatch({
-            type: PUBLIC_FEED_ERROR
-        });
-    };
-};
-
-export const publicFeedClosed = () => {
-    return function(dispatch:FeedDispatch) {
-        dispatch({
-            type: PUBLIC_FEED_CLOSED
-        });
-    };
-};
-
-export const publicFeedGetMessage = (message:any) => {
-    return function(dispatch:FeedDispatch) {
-        dispatch({
-            type: PUBLIC_FEED_GET_MESSAGE,
-            payload: message
-        });
-    };
-};
-
-export const publicFeedSendMessage = (message:any) => {
-    return function(dispatch:FeedDispatch) {
-        dispatch({
-            type: PUBLIC_FEED_SEND_MESSAGE,
-            payload: message
-        });
-    };
 };

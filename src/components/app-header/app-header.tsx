@@ -25,7 +25,9 @@ const AppHeader:FC = () => {
                     </li>
                 </ul>
                 <figure className={style.logo}>
-                    <Logo />
+                    <Link to='/'>
+                        <Logo />
+                    </Link>
                 </figure>
                 <ul className={`${style.nav} ${style['nav-right']} inline-list`}>
                     <li>

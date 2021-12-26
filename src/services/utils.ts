@@ -1,5 +1,5 @@
 import moment from "moment";
-import {TBurgerIngredientsItem, TObjectAny} from "../../declarations/library-name";
+import {TBurgerIngredientsItem, TGetOrderIngredients} from "../../declarations/library-name";
 
 export function getCookie(name:string):string {
     const matches = document.cookie.match(
@@ -48,25 +48,25 @@ export function getImagesArray(source:Array<TBurgerIngredientsItem>, seek:Array<
     let result:Array<string> = [];
     seek.forEach(item => {
         let [filteredItem] = source.filter((itm:TBurgerIngredientsItem) => itm._id === item);
-        result.push(filteredItem.image);
+        result.push(filteredItem?.image);
     });
 
     return result;
 }
 
-export function getOrderIngredients(source:Array<TBurgerIngredientsItem>, seek:Array<string | undefined> = []):TObjectAny {
-    let result:TObjectAny = {
+export function getOrderIngredients(source:Array<TBurgerIngredientsItem>, seek:Array<string | undefined> = []):TGetOrderIngredients {
+    let result:TGetOrderIngredients = {
         totalPrice: 0,
         ingredients: []
     }
     seek?.length &&
         seek.forEach(item => {
-            let [existingItem] = result.ingredients.filter((itm:TBurgerIngredientsItem) => itm._id === item);
+            const [existingItem] = result.ingredients.filter((itm:TBurgerIngredientsItem) => itm._id === item);
             if(existingItem) {
                 result.ingredients = result.ingredients.map((itm:TBurgerIngredientsItem) => {
                     return {
                         ...itm,
-                        count: existingItem._id === itm._id ? existingItem.count + 1 : itm.count
+                        count: existingItem._id === itm._id && existingItem.count ? existingItem.count + 1 : itm.count
                     }
                 });
                 result.totalPrice += existingItem.price;

@@ -5,8 +5,21 @@ declare type TSubmitCallback = (e: React.FormEvent) => void;
 declare type TCallback = (e: React.Event) => void;
 declare type TObjectAny = {[string: string]: any};
 declare type TRefs = TObjectAny;
-declare type TStates = TObjectAny;
-declare type TIngredients = TObjectAny;
+
+declare type TIngredients = {
+    _id: string | undefined;
+    name: string;
+    type: string;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number
+    price: number;
+    image: string;
+    image_mobile: string;
+    image_large: string;
+    __v?: number;
+};
 
 declare type TOrdersListItem = {
     _id: string | undefined;
@@ -19,6 +32,11 @@ declare type TOrdersListItem = {
     total: number;
     personal: boolean;
 };
+
+declare type TGetOrderIngredients = {
+    totalPrice:number;
+    ingredients:Array<TBurgerIngredientsItem>;
+}
 
 declare type TPersonalComponent = {
     personal?: boolean;
@@ -35,9 +53,15 @@ declare type TBurgerIngredientsItem = {
     id: string | undefined;
     type: string;
     image: string;
+    image_large?: string;
+    image_mobile?: string;
     price: number;
     counter: number;
     name: string;
+    proteins?: number;
+    fat?: number;
+    carbohydrates?: number;
+    calories?: number
     _id?: string | undefined;
     count?: number;
 };
@@ -45,7 +69,7 @@ declare type TBurgerIngredientsItem = {
 declare type TBurgerIngredientsGroup = {
     name: string;
     title: string;
-    ingredients: Array<TIngredients>;
+    ingredients?: Array<TBurgerIngredientsItem>;
 };
 
 declare type TBurgerItem = {
@@ -59,7 +83,7 @@ declare type TBurgerItem = {
 
 declare type TEnergyItem = {
     name: string;
-    value: number;
+    value: number | undefined;
 };
 
 declare type TBurgerConstructor = {
@@ -126,7 +150,7 @@ declare type TFeedState = {
     publicFeedConnected: boolean;
     userFeed: Array<TFeedOrder>;
     userFeedConnected: boolean;
-    statuses: object;
+    statuses: TObjectAny;
 }
 
 declare type TAuthState = {

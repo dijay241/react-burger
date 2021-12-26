@@ -1,16 +1,16 @@
 import React, {FC, useEffect} from 'react';
 import style from '../components/app/app.module.css';
-import {useDispatch, useSelector} from 'react-redux';
 import styleFeed from './feed.module.css';
 import OrdersList from '../components/order/orders-list';
 import {PUBLIC_FEED_START} from "../services/constants/feed";
-import {TStates, TFeedOrder} from "../../declarations/library-name";
+import {TFeedOrder} from "../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../services/hooks";
 
 const FeedPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {total, totalToday, orders} = useSelector((state:TStates) => ({
+    const {total, totalToday, orders} = useAppSelector(state => ({
         total: state?.feed.publicFeedTotal,
         totalToday: state?.feed.publicFeedTotalToday,
         orders: state?.feed.publicFeed
@@ -41,7 +41,7 @@ const FeedPage:FC = () => {
                                 {
                                     ordersDone.map((item:TFeedOrder, index:number) => {
                                         return (
-                                            index < 20 && <div key={index} className={`${styleFeed.item} text text_type_digits-default mb-2`}>{item.number}</div>
+                                            index < 10 && <div key={index} className={`${styleFeed.item} text text_type_digits-default mb-2`}>{item.number}</div>
                                         )
                                     })
                                 }
@@ -53,7 +53,7 @@ const FeedPage:FC = () => {
                                 {
                                     ordersInProgress.map((item:TFeedOrder, index:number) => {
                                         return (
-                                            index < 20 && <div key={index} className={`${styleFeed.item} text text_type_digits-default mb-2`}>{item.number}</div>
+                                            index < 10 && <div key={index} className={`${styleFeed.item} text text_type_digits-default mb-2`}>{item.number}</div>
                                         )
                                     })
                                 }

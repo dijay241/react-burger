@@ -1,5 +1,4 @@
 import React, {useEffect, FC} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { CLOSE_ORDER_MODAL } from '../../services/constants';
 import { getUser } from '../../services/actions/auth';
@@ -25,20 +24,20 @@ import {
     ProfileOrderDetailsPage
 } from '../../pages';
 import {getCookie} from '../../services/utils';
-import {TStates} from "../../../declarations/library-name";
 import OrderContent from "../order/order-content";
 import OrderModal from "../order/order-modal";
 import {getIngredients} from "../../services/actions";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const App:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const ingredientModalShow = location.state?.ingredientModalShow;
     const feedModalShow =  location.state?.feedModalShow;
     const userFeedModalShow =  location.state?.userFeedModalShow;
 
-    const {orderModalShow, isAuthenticated, user, items} = useSelector((state:TStates) => ({
+    const {orderModalShow, isAuthenticated, user, items} = useAppSelector(state => ({
         items: state.ingredients.items,
         orderModalShow: state.order.modalShow,
         isAuthenticated: state.auth.isAuthenticated,
