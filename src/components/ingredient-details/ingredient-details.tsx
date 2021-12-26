@@ -31,26 +31,26 @@ const IngredientDetails:FC = () => {
     const energy:Array<TEnergyItem> = [
             {
                 name: 'Калории, ккал',
-                value: currentItem.calories
+                value: currentItem?.calories
             },
             {
                 name: 'Белки, г',
-                value: currentItem.proteins
+                value: currentItem?.proteins
             },
             {
                 name: 'Жиры, г',
-                value: currentItem.fat
+                value: currentItem?.fat
             },
             {
                 name: 'Углеводы, г',
-                value: currentItem.carbohydrates
+                value: currentItem?.carbohydrates
             }
         ];
 
     return (
         <>
             <div className={`${style.image} mb-4`}>
-                <img src={currentItem.image_large} alt='' />
+                <img src={currentItem?.image_large} alt='' />
             </div>
             <div className={`${style.name} mb-8 text text_type_main-medium`}>
                 {currentItem?.name}

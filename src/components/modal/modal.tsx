@@ -34,8 +34,8 @@ const Modal:FC<TModal> = ({ header, children, closeModal }) => {
                         </header>
                         {children}
                     </div>
+                    <ModalOverlay closeModal={closeModal} />
                 </div>
-                <ModalOverlay closeModal={closeModal} />
             </>
         ),
         modalRoot
