@@ -38,7 +38,7 @@ const BurgerBun:FC<TBurgerBun> = ({type}) => {
     });
 
     return (
-        <div ref={dropTarget}>
+        <div className='bunTarget' ref={dropTarget}>
             {
                 isBunAdded ?
                     <ConstructorElement
