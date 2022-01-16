@@ -1,16 +1,16 @@
 import React, {useState, useCallback, FC} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Navigate} from "react-router-dom";
 import {forgotPassword} from '../services/actions/auth'
-import {TStates, TSubmitCallback} from "../../declarations/library-name";
+import {TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../services/hooks";
 
 const ForgotPasswordPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [emailValue, setEmailValue] = useState<string>('');
 
-    const {isReset} = useSelector((state:TStates) => ({
+    const {isReset} = useAppSelector(state => ({
         isReset: state.auth.isReset
     }));
 
@@ -31,7 +31,7 @@ const ForgotPasswordPage:FC = () => {
         )
         :
         (
-            <section className='form-container'>
+            <section className='form-container pt-10'>
                 <h1 className='text text_type_main-medium pb-6'>Восстановление пароля</h1>
                 <form onSubmit={onSubmit}>
                     <div className='pb-6'>

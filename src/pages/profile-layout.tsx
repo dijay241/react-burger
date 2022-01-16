@@ -5,7 +5,7 @@ import ProfileMenu from '../components/profile/profile-menu';
 
 const ProfileLayout:FC = () => {
     return (
-        <section className={style.container}>
+        <section className={`${style.container} pt-10`}>
             <div className={`${style.menu}`}>
                 <ProfileMenu />
             </div>

@@ -15,9 +15,11 @@ import {
     LOGOUT_SUCCESS,
     GET_USER_SUCCESS,
     UPDATE_USER_SUCCESS
-} from "../actions/auth";
+} from "../constants/auth";
+import {TAuthState} from "../../../declarations/library-name";
+import {TAuthActions} from "../actions/auth";
 
-const initialState = {
+const initialState:TAuthState = {
     forgotRequest: false,
     forgotFailed: false,
 
@@ -41,7 +43,7 @@ const initialState = {
     user: null
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: TAuthActions) => {
     switch (action.type) {
         case FORGOT_PASSWORD_REQUEST:
             return {
@@ -145,4 +147,4 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export default authReducer
+export default authReducer;

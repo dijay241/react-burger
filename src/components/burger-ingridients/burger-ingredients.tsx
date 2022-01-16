@@ -1,19 +1,25 @@
 import React, {FC, useMemo, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import BurgerIngredientsTabs from './burger-ingredients-tabs';
 import BurgerIngredientsGroup from './burger-ingredients-group';
-import {SET_CURRENT_TAB} from '../../services/actions'
-import {TBurgerIngredientsGroup, TIngredients, TStates} from "../../../declarations/library-name";
+import {SET_CURRENT_TAB} from '../../services/constants'
+import {TBurgerIngredientsGroup, TBurgerIngredientsItem} from "../../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const BurgerIngredients:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const tabsRef = useRef<HTMLDivElement>(null);
     const bunsRef = useRef<HTMLDivElement>(null);
     const saucesRef = useRef<HTMLDivElement>(null);
-    const mainsRef = useRef<HTMLDivElement>(null);
+    const mainsRef = useRef<HTMLDivElement>(null)
 
-    const {groups, items, itemsRequest} = useSelector((state:TStates) => ({
+    const blockRefs = {
+        bun: bunsRef,
+        sauce: saucesRef,
+        main: mainsRef
+    }
+
+    const {groups, items, itemsRequest} = useAppSelector(state => ({
         groups: state?.ingredients.groups,
         items: state?.ingredients.items,
         itemsRequest: state?.ingredients.request
@@ -59,7 +65,7 @@ const BurgerIngredients:FC = () => {
                             title = {group.title}
                             name = {group.name}
                             ingredients = {
-                                items && items.filter((item:TIngredients) => item.type === group.name)
+                                items && items.filter((item:TBurgerIngredientsItem) => item.type === group.name)
                             }
                         />
                     )
@@ -71,7 +77,7 @@ const BurgerIngredients:FC = () => {
         <>
             <header className='pt-10'>
                 <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
-                <BurgerIngredientsTabs ref={tabsRef} />
+                <BurgerIngredientsTabs ref={tabsRef} blockRefs={blockRefs} />
             </header>
             <section className='scroll-container'>
                 <div className='scroll-inner custom-scroll pt-10 pb-10' onScroll={findCurrentTab}>

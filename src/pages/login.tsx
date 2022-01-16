@@ -1,12 +1,12 @@
 import React, {FC, useCallback, useState} from 'react';
 import {Link} from 'react-router-dom';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch} from "react-redux";
 import {logIn} from "../services/actions/auth";
 import {TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch} from "../services/hooks";
 
 const LoginPage:FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [emailValue, setEmailValue] = useState<string>('');
     const [passwordValue, setPasswordValue] = useState<string>('');
 
@@ -22,7 +22,7 @@ const LoginPage:FC = () => {
     );
 
     return (
-        <section className='form-container'>
+        <section className='form-container pt-10'>
             <h1 className='text text_type_main-medium pb-6'>Вход</h1>
             <form onSubmit={onSubmit}>
                 <div className='pb-6'>

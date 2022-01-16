@@ -1,13 +1,12 @@
 import React, {FC} from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import {useSelector} from "react-redux";
-import {TStates} from "../../declarations/library-name";
+import {useAppSelector} from "../services/hooks";
 
 const NonAuthRoute:FC = () => {
     const location = useLocation();
     const path = location.state?.from.pathname ? location.state?.from.pathname : '/';
 
-    const {isAuthenticated, user} = useSelector((state:TStates) => ({
+    const {isAuthenticated, user} = useAppSelector(state => ({
         isAuthenticated: state?.auth.isAuthenticated,
         user: state?.auth.user
     }));

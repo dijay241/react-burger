@@ -1,26 +1,26 @@
 import React, {useState, useRef, useCallback, FC} from 'react';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './profile.module.css';
-import { useSelector, useDispatch } from 'react-redux';
 import {updateUser} from '../services/actions/auth';
-import {TRefs, TStates, TSubmitCallback} from "../../declarations/library-name";
+import {TRefs, TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../services/hooks";
 
 const ProfilePage:FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const {user} = useSelector((state:TStates) => ({
+    const {user} = useAppSelector(state => ({
         user: state.auth.user
     }));
 
     const [dataChanged, setDataChanged] = useState<boolean>(false);
 
-    const [nameValue, setNameValue] = useState<string>(user.name);
+    const [nameValue, setNameValue] = useState<string>(user ? user.name : '');
     const [nameDisabled, setNameDisabled] = useState<boolean>(true);
 
-    const [emailValue, setEmailValue] = useState<string>(user.email);
+    const [emailValue, setEmailValue] = useState<string>(user ? user.email : '');
     const [emailDisabled, setEmailDisabled] = useState<boolean>(true);
 
     const [passwordValue, setPasswordValue] = useState<string>('reset_me');
@@ -79,8 +79,8 @@ const ProfilePage:FC = () => {
     const onReset = (e:React.FormEvent):void => {
         e.preventDefault();
         setDataChanged(false);
-        setNameValue(user.name);
-        setEmailValue(user.email);
+        setNameValue(user ? user.name : '');
+        setEmailValue(user ? user.email : '');
         setPasswordValue('reset_me');
     }
 

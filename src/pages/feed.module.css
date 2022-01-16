@@ -1,0 +1,16 @@
+.queue {
+    display: flex;
+    column-gap: calc(9 * var(--offset-base-size));
+}
+
+.column {
+    flex-grow: 1;
+}
+
+.column.done .item {
+    color: var(--colors-interface-success);
+}
+
+.columnTwice {
+    columns: 2;
+}

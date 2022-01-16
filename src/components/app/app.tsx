@@ -1,7 +1,6 @@
 import React, {useEffect, FC} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { CLOSE_ORDER_MODAL } from '../../services/actions';
+import { CLOSE_ORDER_MODAL } from '../../services/constants';
 import { getUser } from '../../services/actions/auth';
 import Modal from '../modal/modal';
 import IngredientModal from '../ingredient-details/ingredient-modal';
@@ -12,6 +11,7 @@ import {
     Layout,
     LoginPage, 
     MainPage, 
+    FeedPage,
     IngredientsPage, 
     ForgotPasswordPage, 
     ProfilePage, 
@@ -19,18 +19,26 @@ import {
     ProfileOrdersPage,
     RegisterPage, 
     ResetPasswordPage, 
-    Page404 
+    Page404,
+    OrderDetailsPage,
+    ProfileOrderDetailsPage
 } from '../../pages';
 import {getCookie} from '../../services/utils';
-import {TStates} from "../../../declarations/library-name";
+import OrderContent from "../order/order-content";
+import OrderModal from "../order/order-modal";
+import {getIngredients} from "../../services/actions";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const App:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const ingredientModalShow = location.state?.ingredientModalShow;
+    const feedModalShow =  location.state?.feedModalShow;
+    const userFeedModalShow =  location.state?.userFeedModalShow;
 
-    const {orderModalShow, isAuthenticated, user} = useSelector((state:TStates) => ({
+    const {orderModalShow, isAuthenticated, user, items} = useAppSelector(state => ({
+        items: state.ingredients.items,
         orderModalShow: state.order.modalShow,
         isAuthenticated: state.auth.isAuthenticated,
         user: state.auth.user
@@ -46,11 +54,12 @@ const App:FC = () => {
         if(getCookie('accessToken') && (!isAuthenticated || !Boolean(user))) {
             dispatch(getUser());
         }
-    }, [dispatch, isAuthenticated, user]);
+        !items.length && dispatch(getIngredients());
+    }, [dispatch, isAuthenticated, user, items.length]);
 
     return (
             <>
-                <Routes location={ingredientModalShow || location}>
+                <Routes location={ingredientModalShow || userFeedModalShow || feedModalShow || location}>
                     <Route path="/" element={<Layout />}>
                         <Route path="/" element={<MainPage />} />
                         <Route element={<NonAuthRoute />}>
@@ -64,11 +73,32 @@ const App:FC = () => {
                                 <Route path="/profile" element={<ProfilePage />} />
                                 <Route path="/profile/orders" element={<ProfileOrdersPage />} />
                             </Route>
+                            <Route path="/profile/orders/:id" element={<ProfileOrderDetailsPage />} />
                         </Route>
+                        <Route path="/feed" element={<FeedPage />} />
+                        <Route path="/feed/:id" element={<OrderDetailsPage />} />
+                        <Route path="/order" element={<OrderContent />} />
                         <Route path="/ingredients/:id" element={<IngredientsPage />} />
                         <Route path="*" element={<Page404 />} />
                     </Route>
+
                 </Routes>
+
+                {
+                    feedModalShow && (
+                        <Routes>
+                            <Route path="/feed/:id" element={<OrderModal />} />
+                        </Routes>
+                    )
+                }
+
+                {
+                    userFeedModalShow && (
+                        <Routes>
+                            <Route path="/profile/orders/:id" element={<OrderModal personal={true} />} />
+                        </Routes>
+                    )
+                }
 
                 {
                     ingredientModalShow && (

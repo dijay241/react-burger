@@ -18,14 +18,16 @@ const AppHeader:FC = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/order-list" className={`${style['nav-item']} pt-4 pb-4 pl-5 pr-5 ${path === '/order-list' && style['nav-item-active']}`}>
-                            <ListIcon type={path === '/order-list' ? 'primary' : 'secondary'} />
+                        <Link to="/feed" className={`${style['nav-item']} pt-4 pb-4 pl-5 pr-5 ${path === '/feed' && style['nav-item-active']}`}>
+                            <ListIcon type={path === '/feed' ? 'primary' : 'secondary'} />
                             <span className={`${style['nav-item-text']} ml-2 text`}>Лента заказов</span>
                         </Link>
                     </li>
                 </ul>
                 <figure className={style.logo}>
-                    <Logo />
+                    <Link to='/'>
+                        <Logo />
+                    </Link>
                 </figure>
                 <ul className={`${style.nav} ${style['nav-right']} inline-list`}>
                     <li>

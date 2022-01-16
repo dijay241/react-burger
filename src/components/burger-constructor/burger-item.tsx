@@ -1,14 +1,14 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useRef,FC} from "react";
 import { useDrag, useDrop } from 'react-dnd';
-import {useDispatch} from "react-redux";
 import style from './burger-constructor.module.css';
-import {DECREASE_ITEM_COUNTER, DELETE_CONSTRUCTOR_ITEM, UPDATE_TOTAL_PRICE} from "../../services/actions";
+import {DECREASE_ITEM_COUNTER, DELETE_CONSTRUCTOR_ITEM, UPDATE_TOTAL_PRICE} from "../../services/constants";
 import {TBurgerItem} from "../../../declarations/library-name";
+import {useAppDispatch} from "../../services/hooks";
 
 const BurgerItem:FC<TBurgerItem> = ({index, id, name, price, image, dragItem}) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef<HTMLDivElement>(null);
 
     const deleteItem = ():void => {
@@ -55,7 +55,7 @@ const BurgerItem:FC<TBurgerItem> = ({index, id, name, price, image, dragItem}) =
 
     const [, drag] = useDrag({
         type: 'item',
-        item: ():{id:string,index:number} => {
+        item: ():{id:string | undefined,index:number} => {
             return { id, index };
         }
     });

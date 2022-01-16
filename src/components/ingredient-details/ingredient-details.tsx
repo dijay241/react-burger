@@ -1,9 +1,9 @@
 import React, {useEffect, FC} from 'react';
 import style from './ingredient-details.module.css';
-import {useSelector, useDispatch} from "react-redux";
 import {useParams} from 'react-router-dom';
 import {getIngredients} from '../../services/actions';
-import {TEnergyItem, TIngredients, TStates} from "../../../declarations/library-name";
+import {TBurgerIngredientsItem, TEnergyItem} from "../../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const EnergyItem:FC<TEnergyItem> = ({ name, value }) => {
     return (
@@ -16,10 +16,10 @@ const EnergyItem:FC<TEnergyItem> = ({ name, value }) => {
 
 const IngredientDetails:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { id } = useParams();
 
-    const {items} = useSelector((state:TStates) => ({
+    const {items} = useAppSelector(state => ({
         items: state.ingredients.items
     }));
 
@@ -27,7 +27,7 @@ const IngredientDetails:FC = () => {
         !items.length && dispatch(getIngredients());
     }, [dispatch, items.length]);
 
-    const [currentItem] = items ? items.filter((item:TIngredients) => item._id === id) : null;
+    const [currentItem] = items ? items.filter((item:TBurgerIngredientsItem) => item._id === id) : [];
     const energy:Array<TEnergyItem> = [
             {
                 name: 'Калории, ккал',

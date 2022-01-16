@@ -8,43 +8,170 @@ import {
     USER_API_URL
 } from '../api';
 
+import {
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_ERROR,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_ERROR,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    REGISTER_ERROR,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_ERROR,
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_ERROR,
+    TOKEN_REQUEST,
+    TOKEN_SUCCESS,
+    TOKEN_ERROR,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_ERROR,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_ERROR, RESET_PASSWORD_FLUSH
+} from '../constants/auth';
+
 import {getCookie, setCookie, deleteCookie} from '../utils';
+import {TUser} from "../../../declarations/library-name";
+import {AppDispatch, AppThunk} from "../store";
 
-export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
+export interface IForgotPasswordRequestAction {
+    readonly type: typeof FORGOT_PASSWORD_REQUEST;
+}
 
-export const RESET_PASSWORD_FLUSH = 'RESET_PASSWORD_FLUSH';
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
+export interface IForgotPasswordSuccessAction {
+    readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
 
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_ERROR = 'REGISTER_ERROR';
+export interface IForgotPasswordErrorAction {
+    readonly type: typeof FORGOT_PASSWORD_ERROR;
+}
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+export interface IResetPasswordRequestAction {
+    readonly type: typeof RESET_PASSWORD_REQUEST;
+}
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export interface IResetPasswordSuccessAction {
+    readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
 
-export const TOKEN_REQUEST = 'TOKEN_REQUEST';
-export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
-export const TOKEN_ERROR = 'TOKEN_ERROR';
+export interface IResetPasswordErrorAction {
+    readonly type: typeof RESET_PASSWORD_ERROR;
+}
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_ERROR = 'GET_USER_ERROR';
+export interface IRegisterRequestAction {
+    readonly type: typeof REGISTER_REQUEST;
+}
 
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR';
+export interface IRegisterSuccessAction {
+    readonly type: typeof REGISTER_SUCCESS;
+    readonly user: TUser;
+}
 
-export function forgotPassword(email) {
-    return function(dispatch) {
+export interface IRegisterErrorAction {
+    readonly type: typeof REGISTER_ERROR;
+}
+
+export interface ILoginRequestAction {
+    readonly type: typeof LOGIN_REQUEST;
+}
+
+export interface ILoginSuccessAction {
+    readonly type: typeof LOGIN_SUCCESS;
+    readonly user: TUser;
+}
+
+export interface ILoginErrorAction {
+    readonly type: typeof LOGIN_ERROR;
+}
+
+export interface ILogoutRequestAction {
+    readonly type: typeof LOGOUT_REQUEST;
+}
+
+export interface ILogoutSuccessAction {
+    readonly type: typeof LOGOUT_SUCCESS;
+}
+
+export interface ILogoutErrorAction {
+    readonly type: typeof LOGOUT_ERROR;
+}
+
+export interface ITokenRequestAction {
+    readonly type: typeof TOKEN_REQUEST;
+}
+
+export interface ITokenSuccessAction {
+    readonly type: typeof TOKEN_SUCCESS;
+}
+
+export interface ITokenErrorAction {
+    readonly type: typeof TOKEN_ERROR;
+}
+
+export interface IGetUserRequestAction {
+    readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IGetUserSuccessAction {
+    readonly type: typeof GET_USER_SUCCESS;
+    readonly user: TUser;
+}
+
+export interface IGetUserErrorAction {
+    readonly type: typeof GET_USER_ERROR;
+}
+
+export interface IUpdateUserRequestAction {
+    readonly type: typeof UPDATE_USER_REQUEST;
+}
+
+export interface IUpdateUserSuccessAction {
+    readonly type: typeof UPDATE_USER_SUCCESS;
+    readonly user: TUser;
+}
+
+export interface IUpdateUserErrorAction {
+    readonly type: typeof UPDATE_USER_ERROR;
+}
+
+export interface IResetPasswordFlushAction {
+    readonly type: typeof RESET_PASSWORD_FLUSH;
+}
+
+export type TAuthActions =
+    | IForgotPasswordRequestAction
+    | IForgotPasswordSuccessAction
+    | IForgotPasswordErrorAction
+    | IResetPasswordRequestAction
+    | IResetPasswordSuccessAction
+    | IResetPasswordErrorAction
+    | IRegisterSuccessAction
+    | IRegisterRequestAction
+    | IRegisterErrorAction
+    | ILoginRequestAction
+    | ILoginSuccessAction
+    | ILoginErrorAction
+    | ILogoutRequestAction
+    | ILogoutSuccessAction
+    | ILogoutErrorAction
+    | ITokenRequestAction
+    | ITokenSuccessAction
+    | ITokenErrorAction
+    | IGetUserRequestAction
+    | IGetUserSuccessAction
+    | IGetUserErrorAction
+    | IUpdateUserRequestAction
+    | IUpdateUserSuccessAction
+    | IUpdateUserErrorAction
+    | IResetPasswordFlushAction;
+
+export function forgotPassword(email:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         if(email) {
 
             dispatch({
@@ -85,8 +212,8 @@ export function forgotPassword(email) {
     };
 }
 
-export function resetPassword(password, code) {
-    return function(dispatch) {
+export function resetPassword(password:string, code:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -124,8 +251,8 @@ export function resetPassword(password, code) {
     };
 }
 
-export function registerUser(name, email, password) {
-    return function(dispatch) {
+export function registerUser(name:string, email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: REGISTER_REQUEST
         });
@@ -173,8 +300,8 @@ export function registerUser(name, email, password) {
     };
 }
 
-export function logIn(email, password) {
-    return function(dispatch) {
+export function logIn(email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: LOGIN_REQUEST
         });
@@ -221,8 +348,8 @@ export function logIn(email, password) {
     };
 }
 
-export function logOut() {
-    return function(dispatch) {
+export function logOut():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -267,8 +394,8 @@ export function logOut() {
     };
 }
 
-export function refreshTokens() {
-    return function(dispatch) {
+export function refreshTokens():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: TOKEN_REQUEST
         });
@@ -314,8 +441,8 @@ export function refreshTokens() {
     };
 }
 
-export function getUser() {
-    return function(dispatch) {
+export function getUser():AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: GET_USER_REQUEST
         });
@@ -356,8 +483,8 @@ export function getUser() {
     };
 }
 
-export function updateUser(name, email, password) {
-    return function(dispatch) {
+export function updateUser(name:string, email:string, password:string):AppThunk {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });

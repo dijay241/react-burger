@@ -2,12 +2,12 @@ import React, {FC, useCallback, useState} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from "react-router-dom";
 import {resetPassword} from "../services/actions/auth";
-import {useDispatch} from "react-redux";
 import {TSubmitCallback} from "../../declarations/library-name";
+import {useAppDispatch} from "../services/hooks";
 
 const ResetPasswordPage:FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [codeValue, setCodeValue] = useState<string>('');
     const [passwordValue, setPasswordValue] = useState<string>('');
 
@@ -23,7 +23,7 @@ const ResetPasswordPage:FC = () => {
     );
 
     return (
-        <section className='form-container'>
+        <section className='form-container pt-10'>
             <h1 className='text text_type_main-medium pb-6'>Восстановление пароля</h1>
             <form onSubmit={onSubmit}>
                 <div className='mb-6'>

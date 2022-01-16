@@ -4,16 +4,18 @@ import {
     GET_ORDER_SUCCESS,
     SHOW_ORDER_MODAL,
     CLOSE_ORDER_MODAL
-} from "../actions";
+} from "../constants";
+import {TOrderState} from "../../../declarations/library-name";
+import {TMainActions} from '../actions';
 
-const initialState = {
+const initialState:TOrderState = {
     number: null,
     request: false,
     failed: false,
     modalShow: false
 }
 
-const orderReducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action:TMainActions):TOrderState => {
     switch (action.type) {
         case GET_ORDER_REQUEST:
             return {
@@ -50,4 +52,4 @@ const orderReducer = (state = initialState, action) => {
     }
 }
 
-export default orderReducer
+export default orderReducer;

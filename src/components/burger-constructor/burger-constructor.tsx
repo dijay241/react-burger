@@ -1,23 +1,23 @@
 import React, {FC} from 'react';
 import style from './burger-constructor.module.css';
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector, useDispatch} from "react-redux";
 import {useDrop} from 'react-dnd';
 import {
     ADD_CONSTRUCTOR_ITEM,
     INCREASE_ITEM_COUNTER,
     REORDER_CONSTRUCTOR_ITEMS,
     UPDATE_TOTAL_PRICE
-} from "../../services/actions";
+} from "../../services/constants";
 import BurgerBun from './burger-bun';
 import BurgerItem from './burger-item';
-import {TBurgerConstructor, TMove, TStates} from "../../../declarations/library-name";
+import {TBurgerConstructor, TBurgerIngredientsItem, TMove} from "../../../declarations/library-name";
+import {useAppDispatch, useAppSelector} from "../../services/hooks";
 
 const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const {items, totalPrice} = useSelector((state:TStates) => ({
+    const {items, totalPrice} = useAppSelector(state => ({
         items: state.ingredients.constructorItems,
         totalPrice: state.ingredients.totalPrice
     }));
@@ -68,7 +68,7 @@ const BurgerConstructor:FC<TBurgerConstructor> = ({ openModal }) => {
                     <div ref={dropTarget} className={style.content}>
                     {
                         items.length ?
-                            items.map((item:any, index:number) => {
+                            items.map((item:TBurgerIngredientsItem, index:number) => {
                                 return item.type !== 'bun' && (
                                     <BurgerItem
                                         key={index}

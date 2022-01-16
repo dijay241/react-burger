@@ -9,5 +9,23 @@ import Page404 from './page-404';
 import Layout from './layout';
 import ProfileLayout from './profile-layout';
 import ProfileOrdersPage from './profile-orders';
+import FeedPage from './feed';
+import OrderDetailsPage from './order-details';
+import ProfileOrderDetailsPage from './profile-order-details';
 
-export { Layout, LoginPage, MainPage, IngredientsPage, ForgotPasswordPage, ProfilePage, ProfileOrdersPage, ProfileLayout, RegisterPage, ResetPasswordPage, Page404 };
+export { 
+    Layout, 
+    LoginPage, 
+    MainPage, 
+    FeedPage, 
+    OrderDetailsPage, 
+    IngredientsPage, 
+    ForgotPasswordPage, 
+    ProfilePage, 
+    ProfileOrdersPage, 
+    ProfileLayout, 
+    RegisterPage, 
+    ResetPasswordPage, 
+    Page404,
+    ProfileOrderDetailsPage
+};
