@@ -157,6 +157,10 @@ export function getOrderNumber():AppThunk {
             "ingredients": orderItems
         }
 
+        dispatch({
+            type: SHOW_ORDER_MODAL
+        });
+
         fetch(GET_ORDER_API_URL, {
             method: 'POST',
             mode: 'cors',
@@ -176,9 +180,6 @@ export function getOrderNumber():AppThunk {
                     dispatch({
                         type: GET_ORDER_SUCCESS,
                         number: data.order.number
-                    });
-                    dispatch({
-                        type: SHOW_ORDER_MODAL
                     });
                     dispatch({
                         type: DELETE_CONSTRUCTOR_BUN
