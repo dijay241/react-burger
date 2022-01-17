@@ -33,9 +33,12 @@ const App:FC = () => {
 
     const dispatch = useAppDispatch();
     const location = useLocation();
-    const ingredientModalShow = location.state?.ingredientModalShow;
-    const feedModalShow =  location.state?.feedModalShow;
-    const userFeedModalShow =  location.state?.userFeedModalShow;
+
+    const state = location.state as any;
+
+    const ingredientModalShow = state?.ingredientModalShow;
+    const feedModalShow =  state?.feedModalShow;
+    const userFeedModalShow =  state?.userFeedModalShow;
 
     const {orderModalShow, isAuthenticated, user, items} = useAppSelector(state => ({
         items: state.ingredients.items,

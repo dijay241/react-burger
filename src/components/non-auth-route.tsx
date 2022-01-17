@@ -4,7 +4,8 @@ import {useAppSelector} from "../services/hooks";
 
 const NonAuthRoute:FC = () => {
     const location = useLocation();
-    const path = location.state?.from.pathname ? location.state?.from.pathname : '/';
+    const state = location.state as any;
+    const path = state?.from.pathname ? state.from.pathname : '/';
 
     const {isAuthenticated, user} = useAppSelector(state => ({
         isAuthenticated: state?.auth.isAuthenticated,

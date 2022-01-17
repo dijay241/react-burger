@@ -15,22 +15,33 @@ const OrderDetails:FC = () => {
             <div className={`${style.number} text text_type_digits-large mb-8`}>
                 {
                     orderRequest ?
-                        <div>...</div>
+                        <div>⌛</div>
                         :
                         orderNumber
                 }
             </div>
             <div className='text text_type_main-medium mb-15'>
-                идентификатор заказа
+                {
+                    orderRequest ?
+                        <>создаём заказ...</>
+                        :
+                        <>идентификатор заказа</>
+                }
             </div>
             <div className={`${style.icon} mb-15`}>
-                <img src={checkmark} alt='' />
+                {
+                    !orderRequest && <img src={checkmark} alt='' />
+                }
             </div>
             <div className='mb-2 text text_type_main-default'>
-                Ваш заказ начали готовить
+                {
+                    !orderRequest && <>Ваш заказ начали готовить</>
+                }
             </div>
             <div className='text text_type_main-default text_color_inactive'>
-                Дождитесь готовности на орбитальной станции
+                {
+                    !orderRequest && <>Дождитесь готовности на орбитальной станции</>
+                }
             </div>
         </div>
     )

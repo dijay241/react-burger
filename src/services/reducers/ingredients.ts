@@ -83,7 +83,7 @@ const ingredientsReducer = (state = initialState, action:TMainActions):TIngredie
                 ...state,
                 items: [...state.items].map(item => ({
                     ...item,
-                    counter: item._id === action.id ? item.counter + 1 : item.counter
+                    counter: item._id === action.id ? (item.counter || 0) + 1 : item.counter
                 }))
             }
         }
